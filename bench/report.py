@@ -61,11 +61,44 @@ def markdown(agg: dict[str, dict[str, dict[str, object]]]) -> str:
     return "\n".join(lines)
 
 
+HEADER = """# relay-bench 结果 v0.1{tag}
+
+> 生成时间 {now}（UTC+8）。重新生成：`uv run python -m bench.report`。
+> 结论只针对被测工具在本基准设定下的表现，不涉及任何真实中转站。方法见 `docs/methodology.md`。
+
+- 声称模型：`deepseek-v4-pro`（DeepSeek-V4-Pro-0813，统一关闭思考）
+- 替代：同家族降级 `deepseek-flash`（DeepSeek-V4.1-Flash）；跨家族 `gpt-5.6-luna`（经 kapibala 中转，`reasoning_effort: none`）
+- 被测工具：fpverify `bcd60d9`；model-xray `3a8ac61`（Node 22.23.3）
+- 每格计划重复 N=5；"报异常"= fpverify FAIL/SUSPECT，model-xray fail/warn
+- 完成度：{done}/{planned} 格次{status}
+
+## 结果矩阵
+
+"""
+
+
 def main() -> None:
+    import datetime
+
     agg = aggregate()
+    done = sum(int(str(c["valid"])) + int(str(c["errors"])) for t in agg.values()
+               for c in t.values())
+    planned = 2 * len(ARMS) * 5
+    interim = done < planned
+    total = sum(float(str(c["cost_usd"])) for t in agg.values() for c in t.values())
+    extra = ROOT / "results" / "findings.md"
+    body = HEADER.format(
+        tag="（中期）" if interim else "",
+        now=datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+        done=done, planned=planned,
+        status="，矩阵仍在运行，数字会变" if interim else "") + markdown(agg)
+    body += f"\n\n矩阵估算花费合计：${total:.3f}（另有 fpverify 入册约 $0.04、冒烟测试若干美分）。"
+    body += "DeepSeek 按高峰价、kapibala 按 $1.25/$10 每百万 token 上限估算。\n"
+    if extra.exists():
+        body += "\n" + extra.read_text(encoding="utf-8")
+    (ROOT / "results" / "v0.1.md").write_text(body, encoding="utf-8")
     (ROOT / "results" / "summary.json").write_text(json.dumps(agg, ensure_ascii=False, indent=1),
                                                    encoding="utf-8")
-    total = sum(float(str(c["cost_usd"])) for t in agg.values() for c in t.values())
     print(markdown(agg))
     print(f"\n矩阵估算花费合计：${total:.3f}")
 

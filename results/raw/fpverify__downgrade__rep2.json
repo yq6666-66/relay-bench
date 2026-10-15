@@ -1,0 +1,13 @@
+{
+ "tool": "fpverify",
+ "arm": "downgrade",
+ "rep": 2,
+ "verdict": "FAIL",
+ "label": "flagged",
+ "seconds": 150.0,
+ "requests": 186,
+ "prompt_tokens": 7168,
+ "completion_tokens": 272,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.00248
+}

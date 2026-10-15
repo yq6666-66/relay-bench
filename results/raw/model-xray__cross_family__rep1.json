@@ -1,0 +1,13 @@
+{
+ "tool": "model-xray",
+ "arm": "cross_family",
+ "rep": 1,
+ "verdict": "fail",
+ "label": "flagged",
+ "seconds": 877.3,
+ "requests": 49,
+ "prompt_tokens": 18837,
+ "completion_tokens": 1904,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.04259
+}

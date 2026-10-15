@@ -1,0 +1,234 @@
+{
+  "reference_model": "deepseek-v4-pro",
+  "generated_at": "2026-10-15T18:54:39.568401+00:00",
+  "verdict": "PASS",
+  "n_queries": 400,
+  "wealth": 2.068699998066983e-20,
+  "peak_wealth": 1.0,
+  "threshold": 100.0,
+  "alpha": 0.01,
+  "delta": 0.0787896052667912,
+  "aggregate_jsd": 0.10971006867978286,
+  "per_cell_jsd": {
+    "fav_color::en": 0.01009768163878974,
+    "rand_letter::zh": 0.2882636895637758,
+    "rand_num_100::ru": 0.08402299491232952,
+    "rand_num_100::ar": 0.0,
+    "coin_flip::ar": 0.0,
+    "rand_letter::ar": 0.2264736515468952,
+    "rand_city::ar": 0.4375247973402965,
+    "rand_letter::en": 0.14840292169617048,
+    "rand_num_10::ar": 0.051899160321315516,
+    "rand_letter::ru": 0.1254874168088233,
+    "fav_color::zh": 0.0,
+    "rand_num_10::en": 0.207226482438279,
+    "rand_animal::ru": 0.2098308325653857,
+    "fav_num::ru": 0.0346950322183731,
+    "rand_num_10::zh": 0.12117060528646859,
+    "rand_num_100::en": 0.051899160321315516,
+    "rand_animal::zh": 0.0,
+    "fav_color::ru": 0.14106977818170038,
+    "rand_num_10::ru": 0.0,
+    "fav_num::ar": 0.07168790138019379,
+    "rand_city::zh": 0.10514081922678627,
+    "coin_flip::ru": 0.09747776910199239,
+    "fav_color::ar": 0.02587225472069553,
+    "fav_num::en": 0.0004826240492303204,
+    "fav_num::zh": 0.005997386524483707,
+    "rand_animal::ar": 0.1597946827407049,
+    "rand_color::zh": 0.00017267160317097335,
+    "rand_animal::en": 0.34417218327288823,
+    "rand_color::ru": 0.22374096489175108,
+    "rand_color::ar": 0.0,
+    "rand_num_100::zh": 0.10580053831158027,
+    "coin_flip::zh": 0.08013284545336374,
+    "rand_city::en": 0.19217421781583968,
+    "coin_flip::en": 0.0,
+    "rand_color::en": 0.21076200277289664,
+    "rand_city::ru": 0.1880894057666871
+  },
+  "cache_flags": [],
+  "model_fields_seen": {
+    "deepseek-v4-pro": 400
+  },
+  "errors": 0,
+  "detail": "预算内始终未越界，未发现注水证据（在给定 α/δ 下与参考一致）。",
+  "observed_counts": {
+    "fav_num::ru": {
+      "7": 9,
+      "42": 3
+    },
+    "rand_num_100::ar": {
+      "42": 12
+    },
+    "rand_animal::zh": {
+      "猫": 12
+    },
+    "rand_num_10::ru": {
+      "7": 12
+    },
+    "fav_color::zh": {
+      "blue": 11
+    },
+    "rand_num_10::zh": {
+      "4": 1,
+      "7": 10
+    },
+    "rand_animal::en": {
+      "giraffe": 3,
+      "dog": 6,
+      "okapi": 1,
+      "cat": 1
+    },
+    "rand_city::ar": {
+      "باريس": 1,
+      "طوكيو": 4,
+      "القاهرة": 2,
+      "مكّة": 1,
+      "أثينا": 1,
+      "كييف": 1,
+      "الدار": 1
+    },
+    "rand_num_100::ru": {
+      "42": 9,
+      "57": 1,
+      "47": 1
+    },
+    "rand_num_10::ar": {
+      "7": 11
+    },
+    "coin_flip::ar": {
+      "heads": 11
+    },
+    "rand_num_100::zh": {
+      "42": 8,
+      "57": 1,
+      "37": 2
+    },
+    "rand_city::zh": {
+      "京都": 1,
+      "东京": 3,
+      "北京": 1,
+      "巴黎": 4,
+      "香港": 1,
+      "上海": 1
+    },
+    "fav_color::ru": {
+      "blue": 4,
+      "purple": 2,
+      "бирюзовый": 3,
+      "лавандовый": 1,
+      "green": 1
+    },
+    "rand_color::ar": {
+      "blue": 11
+    },
+    "rand_animal::ru": {
+      "кенгуру": 2,
+      "панда": 2,
+      "жираф": 1,
+      "слон": 6
+    },
+    "rand_color::ru": {
+      "blue": 10,
+      "бирюзовый": 1
+    },
+    "rand_city::ru": {
+      "токио": 2,
+      "париж": 6,
+      "лондон": 1,
+      "москва": 1,
+      "лиссабон": 1
+    },
+    "rand_letter::ar": {
+      "b": 1,
+      "z": 4,
+      "x": 4,
+      "m": 2
+    },
+    "fav_num::ar": {
+      "42": 3,
+      "7": 8
+    },
+    "rand_num_10::en": {
+      "7": 9,
+      "5": 1,
+      "6": 1
+    },
+    "coin_flip::zh": {
+      "heads": 7,
+      "tails": 3,
+      "随机": 1
+    },
+    "fav_num::en": {
+      "7": 8,
+      "42": 3
+    },
+    "rand_num_100::en": {
+      "42": 11
+    },
+    "fav_color::ar": {
+      "الأزرق": 10,
+      "blue": 1
+    },
+    "rand_animal::ar": {
+      "قط": 8,
+      "ثعلب": 1,
+      "قطة": 1,
+      "خنزير": 1
+    },
+    "rand_letter::zh": {
+      "q": 1,
+      "z": 4,
+      "a": 4,
+      "r": 1,
+      "k": 1
+    },
+    "fav_color::en": {
+      "blue": 9,
+      "azure": 2
+    },
+    "fav_num::zh": {
+      "7": 10,
+      "8": 1
+    },
+    "rand_letter::en": {
+      "e": 1,
+      "a": 2,
+      "x": 1,
+      "k": 3,
+      "z": 3,
+      "m": 1
+    },
+    "coin_flip::ru": {
+      "heads": 9,
+      "tails": 2
+    },
+    "rand_letter::ru": {
+      "w": 1,
+      "q": 4,
+      "z": 3,
+      "k": 3
+    },
+    "coin_flip::en": {
+      "heads": 11
+    },
+    "rand_city::en": {
+      "tokyo": 6,
+      "london": 1,
+      "oslo": 1,
+      "paris": 2,
+      "kyiv": 1
+    },
+    "rand_color::en": {
+      "blue": 7,
+      "ultramarine": 2,
+      "cerulean": 1,
+      "cobalt": 1
+    },
+    "rand_color::zh": {
+      "蔚蓝": 1,
+      "blue": 10
+    }
+  }
+}
