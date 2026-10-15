@@ -1,0 +1,131 @@
+{
+  "reference_model": "deepseek-v4-pro",
+  "generated_at": "2026-10-15T18:07:09.650204+00:00",
+  "verdict": "FAIL",
+  "n_queries": 42,
+  "wealth": 259.9297434636231,
+  "peak_wealth": 259.9297434636231,
+  "threshold": 100.0,
+  "alpha": 0.01,
+  "delta": 0.0787896052667912,
+  "aggregate_jsd": null,
+  "per_cell_jsd": {},
+  "cache_flags": [],
+  "model_fields_seen": {
+    "deepseek-v4-pro": 42
+  },
+  "errors": 0,
+  "detail": "序贯检验拒绝了'端点是真身'的零假设：行为指纹显著偏离，判定注水/偷换。",
+  "observed_counts": {
+    "rand_num_10::en": {
+      "7": 2
+    },
+    "fav_num::ar": {
+      "<other>": 2
+    },
+    "rand_letter::ar": {
+      "q": 1,
+      "k": 1
+    },
+    "fav_color::ar": {
+      "blue": 2
+    },
+    "rand_city::zh": {
+      "巴黎": 1,
+      "东京": 1
+    },
+    "rand_animal::zh": {
+      "海豚": 2
+    },
+    "rand_num_10::ar": {
+      "7": 1
+    },
+    "coin_flip::ar": {
+      "heads": 1
+    },
+    "rand_animal::ru": {
+      "капибара": 1
+    },
+    "rand_num_100::ru": {
+      "73": 1
+    },
+    "rand_letter::ru": {
+      "q": 1
+    },
+    "fav_num::en": {
+      "42": 1
+    },
+    "rand_num_10::zh": {
+      "7": 1
+    },
+    "coin_flip::en": {
+      "heads": 1
+    },
+    "fav_color::ru": {
+      "blue": 1
+    },
+    "rand_animal::ar": {
+      "فيل": 1
+    },
+    "rand_city::en": {
+      "kyoto": 1
+    },
+    "rand_city::ar": {
+      "طوكيو": 1
+    },
+    "rand_color::zh": {
+      "blue": 1
+    },
+    "fav_num::ru": {
+      "42": 1
+    },
+    "rand_color::en": {
+      "blue": 1
+    },
+    "fav_color::en": {
+      "blue": 1
+    },
+    "rand_num_100::en": {
+      "47": 1
+    },
+    "fav_color::zh": {
+      "blue": 1
+    },
+    "coin_flip::ru": {
+      "heads": 1
+    },
+    "rand_num_100::zh": {
+      "37": 1
+    },
+    "rand_animal::en": {
+      "elephant": 1
+    },
+    "rand_color::ru": {
+      "blue": 1
+    },
+    "rand_num_100::ar": {
+      "73": 1
+    },
+    "rand_num_10::ru": {
+      "7": 1
+    },
+    "rand_letter::en": {
+      "q": 1
+    },
+    "rand_city::ru": {
+      "токио": 1
+    },
+    "rand_color::ar": {
+      "blue": 1
+    },
+    "fav_num::zh": {
+      "7": 1
+    },
+    "coin_flip::zh": {
+      "heads": 1
+    },
+    "rand_letter::zh": {
+      "k": 1
+    }
+  }
+}

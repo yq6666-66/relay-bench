@@ -6,6 +6,7 @@ while the real upstream is recorded in a local JSONL ledger.
 
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 import re
@@ -20,6 +21,10 @@ from starlette.applications import Starlette
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response, StreamingResponse
 from starlette.routing import Route
+
+# Transparent retries on upstream rate limits / transient errors, same for every arm.
+RETRY_STATUS = {429, 500, 502, 503, 504}
+RETRY_DELAYS = [float(x) for x in os.environ.get("RELAY_RETRY_DELAYS", "2,4,8,16").split(",") if x]
 
 KEY_RE = re.compile(r"(sk-|Bearer\s+)[A-Za-z0-9_\-]{8,}")
 
@@ -87,6 +92,11 @@ def create_app(cfg: dict[str, Any], arm_name: str, ledger_path: str | Path,
         ub = build_upstream_body(body, cfg, arm_name)
         if not ub.get("stream"):
             r = await client.post("/chat/completions", json=ub)
+            for delay in RETRY_DELAYS:
+                if r.status_code not in RETRY_STATUS:
+                    break
+                await asyncio.sleep(delay)
+                r = await client.post("/chat/completions", json=ub)
             try:
                 data = r.json()
             except ValueError:
@@ -97,6 +107,13 @@ def create_app(cfg: dict[str, Any], arm_name: str, ledger_path: str | Path,
 
         req = client.build_request("POST", "/chat/completions", json=ub)
         r = await client.send(req, stream=True)
+        for delay in RETRY_DELAYS:
+            if r.status_code not in RETRY_STATUS:
+                break
+            await r.aclose()
+            await asyncio.sleep(delay)
+            r = await client.send(client.build_request("POST", "/chat/completions", json=ub),
+                                  stream=True)
         if r.status_code != 200:
             content = await r.aread()
             await r.aclose()

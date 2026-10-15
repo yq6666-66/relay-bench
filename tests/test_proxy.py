@@ -79,3 +79,16 @@ def test_wrong_model_404(tmp_path):
     with TestClient(app) as c:
         assert c.post("/v1/chat/completions", json=body(model="x")).status_code == 404
         assert c.get("/v1/models").json()["data"][0]["id"] == "deepseek-v4-pro"
+
+
+@respx.mock
+def test_retries_429(tmp_path, monkeypatch):
+    import proxy.app as pa
+    monkeypatch.setattr(pa, "RETRY_DELAYS", [0.0, 0.0])
+    route = respx.post("https://api.deepseek.com/chat/completions").mock(side_effect=[
+        httpx.Response(429, json={"error": {}}),
+        httpx.Response(200, json={"model": "x", "choices": [], "usage": {}})])
+    app = create_app(CFG, "honest", tmp_path / "l.jsonl")
+    with TestClient(app) as c:
+        assert c.post("/v1/chat/completions", json=body()).status_code == 200
+    assert route.call_count == 2
