@@ -11,7 +11,7 @@ import json
 from bench.report import ROOT, aggregate
 
 V02 = ROOT / "results" / "v0.2"
-ARMS = ["honest", "cross_family", "downgrade", "inject", "inflate"]
+ARMS = ["honest", "cross_family", "downgrade", "inject", "inflate", "truncate"]
 OWN = {"refcheck"}
 
 
