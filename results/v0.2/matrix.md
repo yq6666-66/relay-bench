@@ -7,6 +7,7 @@
 | api-relay-audit | downgrade | 3/3 | 0.44–1.00 | MEDIUM MEDIUM MEDIUM | 0.0039 |
 | api-relay-audit | inject | 3/3 | 0.44–1.00 | MEDIUM MEDIUM MEDIUM | 0.0083 |
 | api-relay-audit | inflate | 3/3 | 0.44–1.00 | MEDIUM MEDIUM MEDIUM | 0.0183 |
+| api-relay-audit-ctx | honest | 2/2 | 0.34–1.00 | MEDIUM MEDIUM | 0.4409 |
 | fpverify | inflate | 0/3 | 0.00–0.56 | PASS PASS PASS | 0.0665 |
 | model-xray | inflate | 3/3 | 0.44–1.00 | warn warn warn | 0.0191 |
 
@@ -20,4 +21,4 @@
 | refcheck | inject | 3/3 | 0.44–1.00 | FAIL FAIL FAIL | 0.0015 |
 | refcheck | inflate | 3/3 | 0.44–1.00 | FAIL FAIL FAIL | 0.0007 |
 
-v0.2 估算花费合计：$0.153
+v0.2 估算花费合计：$0.629

@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "model": "deepseek-v4-pro",
+  "seed": 1143638416,
+  "createdAt": "2026-10-16T10:03:19.195Z",
+  "probesetVersion": "v0.2.1",
+  "assetsVersion": "assets-v0.1.0",
+  "identity": {
+    "families": [
+      "deepseek"
+    ],
+    "schemaCompliant": true,
+    "refusalRate": 0.2
+  },
+  "quality": {
+    "accuracy": 0.6666666666666666,
+    "mainCorrect": 8,
+    "mainTotal": 12
+  },
+  "capability": null,
+  "billing": {
+    "slopeEn": 0,
+    "slopeZh": 0
+  }
+}

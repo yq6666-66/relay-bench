@@ -9,7 +9,8 @@ def test_honest_like_report():
     v, label, sig = parse_ara(_rep("MEDIUM", [("green", "No token injection detected"),
                                               ("red", "Test C: Hidden prompt content extracted!")]))
     assert (v, label) == ("MEDIUM", "flagged")
-    assert sig == {"token_injection_flag": False, "token_injection_delta": None, "red_flags": 1}
+    assert sig["token_injection_flag"] is False and sig["red_flags"] == 1
+    assert sig["context_flag"] is False
 
 
 def test_inject_like_report():

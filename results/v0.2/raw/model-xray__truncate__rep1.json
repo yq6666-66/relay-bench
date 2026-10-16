@@ -1,0 +1,13 @@
+{
+ "tool": "model-xray",
+ "arm": "truncate",
+ "rep": 1,
+ "verdict": "fail",
+ "label": "flagged",
+ "seconds": 443.8,
+ "requests": 48,
+ "prompt_tokens": 4236,
+ "completion_tokens": 587,
+ "cache_hit_tokens": 2560,
+ "est_cost_usd": 0.00465
+}

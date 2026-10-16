@@ -25,3 +25,13 @@
   - refcheck：honest 0/3、downgrade 0/3（同一分词器，看不出来，符合预期）、inject 3/3（每条多 34 token）、inflate 3/3、cross_family 3/3（分词器不同）。
   - 三个第三方工具对 inflate 都没有专门的信号：fpverify 3/3 PASS；model-xray 3/3 warn，和它在诚实配置上的误报一样，不能算检出；api-relay-audit 3/3 MEDIUM，与诚实配置相同，token 注入子信号 0/3。
 - 局限：refcheck 依赖已知的官方基线和固定提示，一旦被识别为探针就可能被规避（SHIM A5 类攻击）；对乘数很小的虚报（<15%），短提示分辨不出来。
+
+## P7：截断臂（2026-10-16）
+
+- truncate 臂：上游是真的 deepseek-v4-pro，最后一条 user 消息只保留末尾 1000 字符；system 和更早的消息不动。
+- 新增工具变体 `api-relay-audit-ctx`：打开上下文步骤，用 `--fast-context` 阶梯（10K/50K/100K/200K 字符，每档埋 5 个 canary）。同时新增 `context_flag` 子信号。
+- 结果（详见 matrix.md）：
+  - api-relay-audit-ctx：context_flag 在 truncate 上 3/3，在 honest 上 0/2；整体 risk_level 仍然全是 MEDIUM。honest 每次约 16.3 万 prompt token、约 $0.22，是这一阶段的主要花费。
+  - model-xray：truncate 3/3 fail，靠的是 billing 维度检出"usage 斜率异常（zh slope=0）"：截断后 prompt_tokens 不再随输入长度增长。这是真检出，不是质量题误报（billing 在 honest 上 5/5 满分）。
+  - refcheck：truncate 0/3，符合预期（探针只有几个字符，截断不影响）。
+- P7 花费约 $0.476。

@@ -131,15 +131,19 @@ def parse_ara(report: dict[str, Any]) -> tuple[str, str, dict[str, object]]:
         "token_injection_flag": bool(tok and tok.get("level") in ("yellow", "red")),
         "token_injection_delta": int(m.group(1)) if m else None,
         "red_flags": sum(1 for f in flags if f.get("level") == "red"),
+        "context_flag": any(re.search(r"context|truncat", str(f.get("message", "")), re.IGNORECASE)
+                            and f.get("level") in ("yellow", "red") for f in flags),
     }
     return risk, label, signals
 
 
-def run_api_relay_audit(base: str, out: Path) -> tuple[str, str]:
+def run_api_relay_audit(base: str, out: Path, context: bool = False) -> tuple[str, str]:
     report = out / "ara_report.json"
     env = dict(os.environ, ARA_DUMMY_KEY="local-dummy")
     cmd = [sys.executable, "audit.py", "--key-env", "ARA_DUMMY_KEY", "--url", base,
-           "--model", CLAIMED, "--format", "json", "--output", str(report), *ARA_SKIPS]
+           "--model", CLAIMED, "--format", "json", "--output", str(report)]
+    cmd += ([s for s in ARA_SKIPS if s != "--skip-context"] + ["--fast-context"]
+            if context else ARA_SKIPS)
     p = subprocess.run(cmd, check=False, cwd=TP / "api-relay-audit", capture_output=True,
                        text=True, timeout=1800, env=env)
     (out / "stdout.txt").write_text(redact(p.stdout + p.stderr), encoding="utf-8")
@@ -170,7 +174,8 @@ def run_refcheck(base: str, out: Path) -> tuple[str, str]:
 
 
 TOOLS = {"fpverify": run_fpverify, "model-xray": run_model_xray,
-         "api-relay-audit": run_api_relay_audit, "refcheck": run_refcheck}
+         "api-relay-audit": run_api_relay_audit, "refcheck": run_refcheck,
+         "api-relay-audit-ctx": lambda b, o: run_api_relay_audit(b, o, context=True)}
 
 
 def one(tool: str, arm: str, rep: int, raw: Path = RAW) -> dict[str, object]:

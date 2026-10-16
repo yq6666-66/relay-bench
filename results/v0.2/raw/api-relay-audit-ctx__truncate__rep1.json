@@ -1,0 +1,19 @@
+{
+ "tool": "api-relay-audit-ctx",
+ "arm": "truncate",
+ "rep": 1,
+ "verdict": "MEDIUM",
+ "label": "flagged",
+ "seconds": 52.6,
+ "requests": 17,
+ "prompt_tokens": 1035,
+ "completion_tokens": 1075,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.00562,
+ "signals": {
+  "token_injection_flag": false,
+  "token_injection_delta": null,
+  "red_flags": 2,
+  "context_flag": true
+ }
+}

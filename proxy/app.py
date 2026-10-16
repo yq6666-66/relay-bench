@@ -39,6 +39,17 @@ def load_config(path: str | Path) -> dict[str, Any]:
     return cfg
 
 
+def truncate_last_user(msgs: list[Any], keep: int) -> list[Any]:
+    """Truncation arm: keep only the last `keep` characters of the last user message."""
+    for i in range(len(msgs) - 1, -1, -1):
+        m = msgs[i]
+        if isinstance(m, dict) and m.get("role") == "user" and isinstance(m.get("content"), str):
+            if len(m["content"]) > keep:
+                msgs[i] = {**m, "content": m["content"][-keep:]}
+            break
+    return msgs
+
+
 def build_upstream_body(body: dict[str, Any], cfg: dict[str, Any], arm_name: str) -> dict[str, Any]:
     arm = cfg["arms"][arm_name]
     up = cfg["upstreams"][arm["upstream"]]
@@ -47,6 +58,9 @@ def build_upstream_body(body: dict[str, Any], cfg: dict[str, Any], arm_name: str
     for k in up.get("drop_keys", []):
         out.pop(k, None)
     out.update(up.get("extra_body", {}))
+    keep = arm.get("truncate_chars")
+    if keep:
+        out["messages"] = truncate_last_user(list(out.get("messages", [])), int(keep))
     hidden = arm.get("hidden_system")
     if hidden:
         msgs = list(out.get("messages", []))

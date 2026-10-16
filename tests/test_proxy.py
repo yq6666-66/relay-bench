@@ -108,3 +108,20 @@ def test_inflate_arm_config():
     assert CFG["arms"]["inflate"]["inflate"]["prompt"] > 1
     ub = build_upstream_body(body(), CFG, "inflate")
     assert ub["model"] == "deepseek-v4-pro" and ub["messages"][0]["role"] == "user"
+
+
+def test_truncate_keeps_tail_of_last_user_message():
+    from proxy.app import truncate_last_user
+
+    msgs = [{"role": "system", "content": "S" * 5000}, {"role": "user", "content": "old" * 900},
+            {"role": "assistant", "content": "x"}, {"role": "user", "content": "A" * 3000 + "END"}]
+    out = truncate_last_user(list(msgs), 1000)
+    assert out[0] == msgs[0] and out[1] == msgs[1]
+    assert len(out[3]["content"]) == 1000 and out[3]["content"].endswith("END")
+    assert truncate_last_user([{"role": "user", "content": "hi"}], 1000)[0]["content"] == "hi"
+
+
+def test_truncate_arm_config():
+    ub = build_upstream_body(body(messages=[{"role": "user", "content": "q" * 5000}]), CFG,
+                             "truncate")
+    assert len(ub["messages"][0]["content"]) == 1000

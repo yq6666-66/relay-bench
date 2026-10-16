@@ -1,4 +1,39 @@
 {
+ "api-relay-audit-ctx": {
+  "honest": {
+   "flagged": 2,
+   "valid": 2,
+   "errors": 0,
+   "ci95": [
+    0.34,
+    1.0
+   ],
+   "verdicts": [
+    "MEDIUM",
+    "MEDIUM"
+   ],
+   "mean_requests": 19.0,
+   "cost_usd": 0.4409,
+   "mean_seconds": 73.7
+  },
+  "truncate": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "MEDIUM",
+    "MEDIUM",
+    "MEDIUM"
+   ],
+   "mean_requests": 17.0,
+   "cost_usd": 0.0224,
+   "mean_seconds": 61.4
+  }
+ },
  "api-relay-audit": {
   "cross_family": {
    "flagged": 3,
@@ -122,6 +157,23 @@
    "mean_requests": 49.0,
    "cost_usd": 0.0191,
    "mean_seconds": 49.3
+  },
+  "truncate": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "fail",
+    "fail",
+    "fail"
+   ],
+   "mean_requests": 48.7,
+   "cost_usd": 0.0117,
+   "mean_seconds": 181.0
   }
  },
  "refcheck": {
@@ -209,6 +261,23 @@
    "mean_requests": 6.0,
    "cost_usd": 0.0015,
    "mean_seconds": 6.9
+  },
+  "truncate": {
+   "flagged": 0,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.0,
+    0.56
+   ],
+   "verdicts": [
+    "PASS",
+    "PASS",
+    "PASS"
+   ],
+   "mean_requests": 6.0,
+   "cost_usd": 0.0007,
+   "mean_seconds": 6.4
   }
  }
 }
