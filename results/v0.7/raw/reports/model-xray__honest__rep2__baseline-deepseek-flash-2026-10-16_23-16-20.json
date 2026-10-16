@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "model": "deepseek-flash",
+  "seed": 1162371435,
+  "createdAt": "2026-10-16T15:15:32.217Z",
+  "probesetVersion": "v0.2.1",
+  "assetsVersion": "assets-v0.1.0",
+  "identity": {
+    "families": [
+      "deepseek"
+    ],
+    "schemaCompliant": true,
+    "refusalRate": 0
+  },
+  "quality": {
+    "accuracy": 1,
+    "mainCorrect": 12,
+    "mainTotal": 12
+  },
+  "capability": null,
+  "billing": {
+    "slopeEn": 0.656,
+    "slopeZh": 0.528
+  }
+}

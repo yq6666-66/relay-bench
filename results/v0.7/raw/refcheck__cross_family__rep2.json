@@ -1,0 +1,16 @@
+{
+ "tool": "refcheck",
+ "arm": "cross_family",
+ "rep": 2,
+ "verdict": "INCONCLUSIVE",
+ "label": "clean",
+ "seconds": 205.8,
+ "requests": 6,
+ "prompt_tokens": 450,
+ "completion_tokens": 5,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.00061,
+ "signals": {
+  "reason": "no usage for one_char"
+ }
+}

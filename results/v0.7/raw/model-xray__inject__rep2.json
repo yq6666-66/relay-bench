@@ -1,0 +1,17 @@
+{
+ "tool": "model-xray",
+ "arm": "inject",
+ "rep": 2,
+ "verdict": "pass",
+ "label": "clean",
+ "seconds": 57.0,
+ "requests": 49,
+ "prompt_tokens": 66742,
+ "completion_tokens": 438,
+ "cache_hit_tokens": 62720,
+ "est_cost_usd": 0.00211,
+ "signals": {
+  "billing_level": "pass",
+  "quality_level": "pass"
+ }
+}

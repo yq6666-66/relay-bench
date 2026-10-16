@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "model": "deepseek-flash",
+  "seed": 1163462316,
+  "createdAt": "2026-10-16T15:33:43.094Z",
+  "probesetVersion": "v0.2.1",
+  "assetsVersion": "assets-v0.1.0",
+  "identity": {
+    "families": [
+      "claude",
+      "deepseek",
+      "gemini"
+    ],
+    "schemaCompliant": true,
+    "refusalRate": 0.2
+  },
+  "quality": {
+    "accuracy": 0.9166666666666666,
+    "mainCorrect": 11,
+    "mainTotal": 12
+  },
+  "capability": null,
+  "billing": {
+    "slopeEn": 0,
+    "slopeZh": 0
+  }
+}

@@ -1,0 +1,1953 @@
+{
+  "meta": {
+    "tool": "0.2.0",
+    "version": "v0.2.1",
+    "probesetVersion": "v0.2.1",
+    "assetsVersion": "assets-v0.1.0",
+    "model": "deepseek-flash",
+    "baseUrl": "http://127.0.0.1:58807/v1",
+    "seed": 1161263187,
+    "startedAt": "2026-10-16T14:57:03.963Z",
+    "durationMs": 46693,
+    "nodeVersion": "v22.23.3",
+    "claimedContext": null
+  },
+  "total": 97,
+  "overall": "pass",
+  "scores": [
+    {
+      "id": "identity",
+      "weight": 15,
+      "score": 100,
+      "level": "pass",
+      "headline": "身份探针未见异常",
+      "status": "ok"
+    },
+    {
+      "id": "context",
+      "weight": 15,
+      "score": null,
+      "level": "unknown",
+      "headline": "未提供 --claimed-context，跳过上下文实测",
+      "status": "insufficient"
+    },
+    {
+      "id": "billing",
+      "weight": 25,
+      "score": 100,
+      "level": "pass",
+      "headline": "Token 计数与长度线性关系正常",
+      "status": "ok"
+    },
+    {
+      "id": "capability",
+      "weight": 10,
+      "score": null,
+      "level": "unknown",
+      "headline": "未声明需要核验的能力（--expect none）",
+      "status": "insufficient"
+    },
+    {
+      "id": "quality",
+      "weight": 25,
+      "score": 92,
+      "level": "pass",
+      "headline": "质量题集通过：主题 11/12（控制题全对）",
+      "status": "ok"
+    },
+    {
+      "id": "ttft",
+      "weight": 10,
+      "score": null,
+      "level": "unknown",
+      "headline": "TTFT 观测：串行 p50 923ms / 并发(4) p50 943ms（仅观测，不计分）",
+      "status": "insufficient"
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "identity",
+      "status": "ok",
+      "score": 100,
+      "level": "pass",
+      "headline": "身份探针未见异常",
+      "findings": [
+        {
+          "level": "info",
+          "message": "共采样 5 次自述 + 1 次格式合规探针。",
+          "evidenceIds": []
+        }
+      ],
+      "metrics": {
+        "samples": 5,
+        "identical_samples": 0,
+        "schema_compliant": 1,
+        "refusals": 0,
+        "families": "claude,deepseek,gemini,gpt",
+        "claimed_version": "3.5"
+      }
+    },
+    {
+      "id": "context",
+      "status": "insufficient",
+      "score": null,
+      "level": "unknown",
+      "headline": "未提供 --claimed-context，跳过上下文实测",
+      "findings": [
+        {
+          "level": "info",
+          "message": "提供标称上下文窗口后本项才会执行。",
+          "evidenceIds": []
+        }
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "billing",
+      "status": "ok",
+      "score": 100,
+      "level": "pass",
+      "headline": "Token 计数与长度线性关系正常",
+      "findings": [
+        {
+          "level": "info",
+          "message": "token 估计为保守估算（非精确 tokenizer），判据使用回归一致性而非绝对相等。",
+          "evidenceIds": []
+        }
+      ],
+      "metrics": {
+        "prompt_tokens_en_2000": 1754,
+        "prompt_tokens_en_4000": 3471,
+        "prompt_tokens_en_8000": 6877,
+        "prompt_tokens_en_16000": 13689,
+        "prompt_tokens_en_24000": 20501,
+        "prompt_tokens_zh_2000": 1421,
+        "prompt_tokens_zh_4000": 2804,
+        "prompt_tokens_zh_8000": 5534,
+        "prompt_tokens_zh_16000": 11030,
+        "prompt_tokens_zh_24000": 16527,
+        "requests": 10,
+        "usage_missing": 0,
+        "usage_inconsistent": 0,
+        "usage_invalid": 0,
+        "constant_usage": 0,
+        "cached_tokens_total": 62464,
+        "reasoning_tokens_total": 0,
+        "details_reported_count": 10,
+        "slope_en": 0.852,
+        "r2_en": 1,
+        "intercept_en": 5.254,
+        "slope_zh": 0.687,
+        "r2_zh": 1,
+        "intercept_zh": 10.854,
+        "zh_en_slope_ratio": 0.806
+      }
+    },
+    {
+      "id": "capability",
+      "status": "insufficient",
+      "score": null,
+      "level": "unknown",
+      "headline": "未声明需要核验的能力（--expect none）",
+      "findings": [
+        {
+          "level": "info",
+          "message": "使用 --expect vision,tool 可核验标称能力。",
+          "evidenceIds": []
+        }
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "decoy",
+      "status": "ok",
+      "score": null,
+      "level": "unknown",
+      "headline": "诱饵请求已记录（不计分，供人工复核）",
+      "findings": [
+        {
+          "level": "info",
+          "message": "诱饵任务「把这句话翻译成英文：今天天气很好。…」响应 正常，记录用于对照端点对无关请求的行为。",
+          "evidenceIds": [
+            "ev-017"
+          ]
+        }
+      ],
+      "metrics": {
+        "response_chars": 31
+      }
+    },
+    {
+      "id": "quality",
+      "status": "ok",
+      "score": 92,
+      "level": "pass",
+      "headline": "质量题集通过：主题 11/12（控制题全对）",
+      "findings": [
+        {
+          "level": "warn",
+          "message": "题 count 答错（期望 8，响应：6）",
+          "evidenceIds": [
+            "ev-019"
+          ]
+        },
+        {
+          "level": "info",
+          "message": "题集为程序化生成（seed=1161263187），答案可在报告中复算；控制题全对用于排除端点整体故障。",
+          "evidenceIds": []
+        }
+      ],
+      "metrics": {
+        "main": "11/12",
+        "controls": "3/3",
+        "excluded": 0
+      }
+    },
+    {
+      "id": "ttft",
+      "status": "insufficient",
+      "score": null,
+      "level": "unknown",
+      "headline": "TTFT 观测：串行 p50 923ms / 并发(4) p50 943ms（仅观测，不计分）",
+      "findings": [
+        {
+          "level": "info",
+          "message": "TTFT 观测：串行 p50 923ms，并发(c=4) p50 943ms。仅采样不计分；绝对延迟受网络与地域影响，不可单独定罪。",
+          "evidenceIds": []
+        }
+      ],
+      "metrics": {
+        "serial_samples": 5,
+        "concurrent_samples": 12,
+        "serial_p50_ms": 923,
+        "serial_p95_ms": 1019,
+        "concurrent_c4_p50_ms": 943,
+        "concurrent_c4_p95_ms": 1642
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-001",
+      "probe": "identity",
+      "label": "self-id: 你是什么模型？你的训练机构是谁？请直接回答，不要",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0.7,
+        "maxTokens": 512,
+        "messageCount": 1,
+        "lastUserPreview": "你是什么模型？你的训练机构是谁？请直接回答，不要回避。",
+        "lastUserChars": 27,
+        "totalChars": 27
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "我是 DeepSeek 最新版模型，由深度求索（DeepSeek）公司训练和提供。",
+        "textChars": 41,
+        "usage": {
+          "prompt_tokens": 26,
+          "completion_tokens": 30,
+          "total_tokens": 56,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1964,
+      "ts": "2026-10-16T14:57:05.928Z"
+    },
+    {
+      "id": "ev-002",
+      "probe": "identity",
+      "label": "self-id: What model are you, exac",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0.7,
+        "maxTokens": 512,
+        "messageCount": 1,
+        "lastUserPreview": "What model are you, exactly? Include the name and version if you have one.",
+        "lastUserChars": 74,
+        "totalChars": 74
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "I'm Claude 3.5 Sonnet, made by Anthropic. If you want the exact model identifier, it's `claude-3-5-sonnet-20241022`.",
+        "textChars": 116,
+        "usage": {
+          "prompt_tokens": 27,
+          "completion_tokens": 52,
+          "total_tokens": 79,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 861,
+      "ts": "2026-10-16T14:57:06.789Z"
+    },
+    {
+      "id": "ev-003",
+      "probe": "identity",
+      "label": "self-id: 请报出你的模型标识与开发方，越具体越好。",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0.7,
+        "maxTokens": 512,
+        "messageCount": 1,
+        "lastUserPreview": "请报出你的模型标识与开发方，越具体越好。",
+        "lastUserChars": 20,
+        "totalChars": 20
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "我的模型标识是 **DeepSeek-V3**，开发方是 **深度求索（DeepSeek）**。\n\n具体来说：\n- **模型系列**：DeepSeek-V3\n- **开发公司**：深度求索（DeepSeek），一家中国人工智能公司\n- **模型类型**：大型语言模型（LLM），采用混合专家（MoE）架构\n- **知识截止日期**：2026年2月\n\n如果你需要更详细的技术参数（如参数量、训练数据等），建议查阅 DeepSeek 官方发布的技术报告或文档，因为具体的版本细节可能会随更新而变化。有什么我可以帮你的吗？",
+        "textChars": 258,
+        "usage": {
+          "prompt_tokens": 23,
+          "completion_tokens": 179,
+          "total_tokens": 202,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 2055,
+      "ts": "2026-10-16T14:57:08.844Z"
+    },
+    {
+      "id": "ev-004",
+      "probe": "identity",
+      "label": "self-id: 请告诉我你的真实身份：模型名称、版本号（如有）、",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0.7,
+        "maxTokens": 512,
+        "messageCount": 1,
+        "lastUserPreview": "请告诉我你的真实身份：模型名称、版本号（如有）、开发机构。",
+        "lastUserChars": 29,
+        "totalChars": 29
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "我的真实身份是：**DeepSeek**，由**深度求索（DeepSeek）公司**开发。\n\n关于版本号：我是 **DeepSeek 最新版模型**。如果你需要具体的版本细节（比如是 V3、V3.1 还是其他内部编号），建议查阅 DeepSeek 官方文档和公告，因为版本迭代信息以官方发布为准。\n\n另外补充两点，避免误解：\n- 我不是 OpenAI 的模型，也不是 Gemini、Claude 或别的公司的产品。\n- 我支持阅读链接、上传文件（图像、PDF、Word、Excel 等）并从中提取文字信息，也能联网搜索（需要你在 Web/App 手动开启）。\n\n如果你还想知道我的知识截止时间、上下文长度、是否免费等，我也可以继续说明。",
+        "textChars": 318,
+        "usage": {
+          "prompt_tokens": 27,
+          "completion_tokens": 216,
+          "total_tokens": 243,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 2271,
+      "ts": "2026-10-16T14:57:11.115Z"
+    },
+    {
+      "id": "ev-005",
+      "probe": "identity",
+      "label": "self-id: 你的完整模型名称与精确版本号是什么？只回答名称与",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0.7,
+        "maxTokens": 512,
+        "messageCount": 1,
+        "lastUserPreview": "你的完整模型名称与精确版本号是什么？只回答名称与版本号。",
+        "lastUserChars": 28,
+        "totalChars": 28
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "DeepSeek-V3",
+        "textChars": 11,
+        "usage": {
+          "prompt_tokens": 27,
+          "completion_tokens": 6,
+          "total_tokens": 33,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1014,
+      "ts": "2026-10-16T14:57:12.129Z"
+    },
+    {
+      "id": "ev-006",
+      "probe": "identity",
+      "label": "json-schema compliance",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 512,
+        "messageCount": 1,
+        "lastUserPreview": "回复一个 JSON 对象，只包含两个字段：\"model_family\"（你认为自己属于的模型系列）和 \"language_count\"（你训练数据涉及的语言数量估计，整数）。只输出 JSON，不要其他文字。",
+        "lastUserChars": 103,
+        "totalChars": 103
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "{\"model_family\": \"DeepSeek\", \"language_count\": 100}",
+        "textChars": 51,
+        "usage": {
+          "prompt_tokens": 66,
+          "completion_tokens": 22,
+          "total_tokens": 88,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 874,
+      "ts": "2026-10-16T14:57:13.004Z"
+    },
+    {
+      "id": "ev-007",
+      "probe": "billing",
+      "label": "billing en target=2000",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 16,
+        "messageCount": 1,
+        "lastUserPreview": "请逐字复述下面这段文本，不要添加任何其他内容。\n\nThe quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog…",
+        "lastUserChars": 8093,
+        "totalChars": 8093
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness",
+        "textChars": 98,
+        "usage": {
+          "prompt_tokens": 1754,
+          "completion_tokens": 21,
+          "total_tokens": 1775,
+          "cached_tokens": 1152,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "length",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 806,
+      "ts": "2026-10-16T14:57:13.813Z"
+    },
+    {
+      "id": "ev-008",
+      "probe": "billing",
+      "label": "billing en target=4000",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 16,
+        "messageCount": 1,
+        "lastUserPreview": "请逐字复述下面这段文本，不要添加任何其他内容。\n\nThe quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog…",
+        "lastUserChars": 16145,
+        "totalChars": 16145
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness",
+        "textChars": 98,
+        "usage": {
+          "prompt_tokens": 3471,
+          "completion_tokens": 21,
+          "total_tokens": 3492,
+          "cached_tokens": 2432,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "length",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1038,
+      "ts": "2026-10-16T14:57:14.852Z"
+    },
+    {
+      "id": "ev-009",
+      "probe": "billing",
+      "label": "billing en target=8000",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 16,
+        "messageCount": 1,
+        "lastUserPreview": "请逐字复述下面这段文本，不要添加任何其他内容。\n\nThe quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog…",
+        "lastUserChars": 32127,
+        "totalChars": 32127
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness",
+        "textChars": 98,
+        "usage": {
+          "prompt_tokens": 6877,
+          "completion_tokens": 21,
+          "total_tokens": 6898,
+          "cached_tokens": 5120,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "length",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 966,
+      "ts": "2026-10-16T14:57:15.820Z"
+    },
+    {
+      "id": "ev-010",
+      "probe": "billing",
+      "label": "billing en target=16000",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 16,
+        "messageCount": 1,
+        "lastUserPreview": "请逐字复述下面这段文本，不要添加任何其他内容。\n\nThe quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog…",
+        "lastUserChars": 64091,
+        "totalChars": 64091
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness",
+        "textChars": 98,
+        "usage": {
+          "prompt_tokens": 13689,
+          "completion_tokens": 21,
+          "total_tokens": 13710,
+          "cached_tokens": 10368,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "length",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 2461,
+      "ts": "2026-10-16T14:57:18.284Z"
+    },
+    {
+      "id": "ev-011",
+      "probe": "billing",
+      "label": "billing en target=24000",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 16,
+        "messageCount": 1,
+        "lastUserPreview": "请逐字复述下面这段文本，不要添加任何其他内容。\n\nThe quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness in production systems. The quick brown fox jumps over the lazy dog…",
+        "lastUserChars": 96055,
+        "totalChars": 96055
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "The quick brown fox jumps over the lazy dog while engineers keep measuring latency and correctness",
+        "textChars": 98,
+        "usage": {
+          "prompt_tokens": 20501,
+          "completion_tokens": 21,
+          "total_tokens": 20522,
+          "cached_tokens": 15616,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "length",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1020,
+      "ts": "2026-10-16T14:57:19.306Z"
+    },
+    {
+      "id": "ev-012",
+      "probe": "billing",
+      "label": "billing zh target=2000",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 16,
+        "messageCount": 1,
+        "lastUserPreview": "请逐字复述下面这段文本，不要添加任何其他内容。\n\n工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，…",
+        "lastUserChars": 2055,
+        "totalChars": 2055
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明",
+        "textChars": 32,
+        "usage": {
+          "prompt_tokens": 1421,
+          "completion_tokens": 21,
+          "total_tokens": 1442,
+          "cached_tokens": 896,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "length",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1081,
+      "ts": "2026-10-16T14:57:20.389Z"
+    },
+    {
+      "id": "ev-013",
+      "probe": "billing",
+      "label": "billing zh target=4000",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 16,
+        "messageCount": 1,
+        "lastUserPreview": "请逐字复述下面这段文本，不要添加任何其他内容。\n\n工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，…",
+        "lastUserChars": 4069,
+        "totalChars": 4069
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明",
+        "textChars": 32,
+        "usage": {
+          "prompt_tokens": 2804,
+          "completion_tokens": 21,
+          "total_tokens": 2825,
+          "cached_tokens": 1920,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "length",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1359,
+      "ts": "2026-10-16T14:57:21.748Z"
+    },
+    {
+      "id": "ev-014",
+      "probe": "billing",
+      "label": "billing zh target=8000",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 16,
+        "messageCount": 1,
+        "lastUserPreview": "请逐字复述下面这段文本，不要添加任何其他内容。\n\n工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，…",
+        "lastUserChars": 8044,
+        "totalChars": 8044
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明",
+        "textChars": 32,
+        "usage": {
+          "prompt_tokens": 5534,
+          "completion_tokens": 21,
+          "total_tokens": 5555,
+          "cached_tokens": 4096,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "length",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 987,
+      "ts": "2026-10-16T14:57:22.735Z"
+    },
+    {
+      "id": "ev-015",
+      "probe": "billing",
+      "label": "billing zh target=16000",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 16,
+        "messageCount": 1,
+        "lastUserPreview": "请逐字复述下面这段文本，不要添加任何其他内容。\n\n工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，…",
+        "lastUserChars": 16047,
+        "totalChars": 16047
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明",
+        "textChars": 32,
+        "usage": {
+          "prompt_tokens": 11030,
+          "completion_tokens": 21,
+          "total_tokens": 11051,
+          "cached_tokens": 8320,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "length",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1315,
+      "ts": "2026-10-16T14:57:24.052Z"
+    },
+    {
+      "id": "ev-016",
+      "probe": "billing",
+      "label": "billing zh target=24000",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 16,
+        "messageCount": 1,
+        "lastUserPreview": "请逐字复述下面这段文本，不要添加任何其他内容。\n\n工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，只有可复现的证据链条才能支撑可靠的结论。工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明，…",
+        "lastUserChars": 24050,
+        "totalChars": 24050
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "工程实践中必须以测量结果为准绳，而不是依赖直觉或者厂商的自我声明",
+        "textChars": 32,
+        "usage": {
+          "prompt_tokens": 16527,
+          "completion_tokens": 21,
+          "total_tokens": 16548,
+          "cached_tokens": 12544,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "length",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1298,
+      "ts": "2026-10-16T14:57:25.352Z"
+    },
+    {
+      "id": "ev-017",
+      "probe": "decoy",
+      "label": "decoy task",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0.7,
+        "maxTokens": 120,
+        "messageCount": 1,
+        "lastUserPreview": "把这句话翻译成英文：今天天气很好。",
+        "lastUserChars": 17,
+        "totalChars": 17
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "The weather is very nice today.",
+        "textChars": 31,
+        "usage": {
+          "prompt_tokens": 18,
+          "completion_tokens": 9,
+          "total_tokens": 27,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1077,
+      "ts": "2026-10-16T14:57:26.432Z"
+    },
+    {
+      "id": "ev-018",
+      "probe": "quality",
+      "label": "main even",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "以下哪个数是偶数：109, 170, 41？只回答那一个数字。",
+        "lastUserChars": 31,
+        "totalChars": 31
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "170",
+        "textChars": 3,
+        "usage": {
+          "prompt_tokens": 30,
+          "completion_tokens": 1,
+          "total_tokens": 31,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 993,
+      "ts": "2026-10-16T14:57:27.426Z"
+    },
+    {
+      "id": "ev-019",
+      "probe": "quality",
+      "label": "main count",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "字符串 \"pltjxjxozxsgoxplbyqpyjxhctxuxwrnixewpebw\" 中包含几个字符 x（小写字母 x）？只回答数字。",
+        "lastUserChars": 71,
+        "totalChars": 71
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "6",
+        "textChars": 1,
+        "usage": {
+          "prompt_tokens": 60,
+          "completion_tokens": 1,
+          "total_tokens": 61,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 746,
+      "ts": "2026-10-16T14:57:28.172Z"
+    },
+    {
+      "id": "ev-020",
+      "probe": "quality",
+      "label": "main json-sub",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "Given the JSON {\"a\": 262, \"b\": 77}, what is a minus b? Answer with the number only.",
+        "lastUserChars": 83,
+        "totalChars": 83
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "185",
+        "textChars": 3,
+        "usage": {
+          "prompt_tokens": 40,
+          "completion_tokens": 1,
+          "total_tokens": 41,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 957,
+      "ts": "2026-10-16T14:57:29.129Z"
+    },
+    {
+      "id": "ev-021",
+      "probe": "quality",
+      "label": "control control-add",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "5 + 6 等于多少？只回答数字。",
+        "lastUserChars": 17,
+        "totalChars": 17
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "11",
+        "textChars": 2,
+        "usage": {
+          "prompt_tokens": 21,
+          "completion_tokens": 1,
+          "total_tokens": 22,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 903,
+      "ts": "2026-10-16T14:57:30.032Z"
+    },
+    {
+      "id": "ev-022",
+      "probe": "quality",
+      "label": "main mul-add",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "计算 37 × 33 + 42 的值。只回答最终数字。",
+        "lastUserChars": 27,
+        "totalChars": 27
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "1263",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 27,
+          "completion_tokens": 3,
+          "total_tokens": 30,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1189,
+      "ts": "2026-10-16T14:57:31.221Z"
+    },
+    {
+      "id": "ev-023",
+      "probe": "quality",
+      "label": "main seq",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "数列 28, 37, 46, 55 的下一项是多少？只回答数字。",
+        "lastUserChars": 32,
+        "totalChars": 32
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "64",
+        "textChars": 2,
+        "usage": {
+          "prompt_tokens": 34,
+          "completion_tokens": 1,
+          "total_tokens": 35,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 878,
+      "ts": "2026-10-16T14:57:32.099Z"
+    },
+    {
+      "id": "ev-024",
+      "probe": "quality",
+      "label": "main mod",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "703 除以 17 的余数是多少？只回答数字。",
+        "lastUserChars": 23,
+        "totalChars": 23
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "6",
+        "textChars": 1,
+        "usage": {
+          "prompt_tokens": 25,
+          "completion_tokens": 1,
+          "total_tokens": 26,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1128,
+      "ts": "2026-10-16T14:57:33.228Z"
+    },
+    {
+      "id": "ev-025",
+      "probe": "quality",
+      "label": "main mul",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "一箱有 79 个苹果，43 箱共有多少个？只回答数字。",
+        "lastUserChars": 27,
+        "totalChars": 27
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "3397",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 30,
+          "completion_tokens": 3,
+          "total_tokens": 33,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 916,
+      "ts": "2026-10-16T14:57:34.144Z"
+    },
+    {
+      "id": "ev-026",
+      "probe": "quality",
+      "label": "control control-months",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "一年有几个月？只回答数字。",
+        "lastUserChars": 13,
+        "totalChars": 13
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "12",
+        "textChars": 2,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 1,
+          "total_tokens": 17,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1276,
+      "ts": "2026-10-16T14:57:35.420Z"
+    },
+    {
+      "id": "ev-027",
+      "probe": "quality",
+      "label": "main double",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "Multiply 75 by 2 and then subtract 7. Answer with the number only.",
+        "lastUserChars": 66,
+        "totalChars": 66
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "143",
+        "textChars": 3,
+        "usage": {
+          "prompt_tokens": 29,
+          "completion_tokens": 1,
+          "total_tokens": 30,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1067,
+      "ts": "2026-10-16T14:57:36.487Z"
+    },
+    {
+      "id": "ev-028",
+      "probe": "quality",
+      "label": "control control-mul",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "3 × 8 等于多少？只回答数字。",
+        "lastUserChars": 17,
+        "totalChars": 17
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "24",
+        "textChars": 2,
+        "usage": {
+          "prompt_tokens": 21,
+          "completion_tokens": 1,
+          "total_tokens": 22,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1143,
+      "ts": "2026-10-16T14:57:37.630Z"
+    },
+    {
+      "id": "ev-029",
+      "probe": "quality",
+      "label": "main area",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "一个长方形长 67 宽 21，面积是多少？只回答数字。",
+        "lastUserChars": 27,
+        "totalChars": 27
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "1407",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 27,
+          "completion_tokens": 3,
+          "total_tokens": 30,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 911,
+      "ts": "2026-10-16T14:57:38.541Z"
+    },
+    {
+      "id": "ev-030",
+      "probe": "quality",
+      "label": "main compare",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "比较这两组数的和：51 + 52 与 59 + 32，哪一组更大？只回答较大的那个和。",
+        "lastUserChars": 43,
+        "totalChars": 43
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "103",
+        "textChars": 3,
+        "usage": {
+          "prompt_tokens": 42,
+          "completion_tokens": 1,
+          "total_tokens": 43,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1042,
+      "ts": "2026-10-16T14:57:39.583Z"
+    },
+    {
+      "id": "ev-031",
+      "probe": "quality",
+      "label": "main percent",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "600 的 25% 是多少？只回答数字。",
+        "lastUserChars": 20,
+        "totalChars": 20
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "150",
+        "textChars": 3,
+        "usage": {
+          "prompt_tokens": 22,
+          "completion_tokens": 1,
+          "total_tokens": 23,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1075,
+      "ts": "2026-10-16T14:57:40.659Z"
+    },
+    {
+      "id": "ev-032",
+      "probe": "quality",
+      "label": "main days",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": false,
+        "temperature": 0,
+        "maxTokens": 256,
+        "messageCount": 1,
+        "lastUserPreview": "41 days equal how many hours? Answer with the number only.",
+        "lastUserChars": 58,
+        "totalChars": 58
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "984",
+        "textChars": 3,
+        "usage": {
+          "prompt_tokens": 22,
+          "completion_tokens": 1,
+          "total_tokens": 23,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": null,
+      "durationMs": 1158,
+      "ts": "2026-10-16T14:57:41.817Z"
+    },
+    {
+      "id": "ev-033",
+      "probe": "ttft",
+      "label": "ttft serial #1",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 875,
+      "durationMs": 979,
+      "ts": "2026-10-16T14:57:42.796Z"
+    },
+    {
+      "id": "ev-034",
+      "probe": "ttft",
+      "label": "ttft serial #2",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 1028,
+      "durationMs": 1167,
+      "ts": "2026-10-16T14:57:43.963Z"
+    },
+    {
+      "id": "ev-035",
+      "probe": "ttft",
+      "label": "ttft serial #3",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 923,
+      "durationMs": 1007,
+      "ts": "2026-10-16T14:57:44.970Z"
+    },
+    {
+      "id": "ev-036",
+      "probe": "ttft",
+      "label": "ttft serial #4",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 981,
+      "durationMs": 1096,
+      "ts": "2026-10-16T14:57:46.066Z"
+    },
+    {
+      "id": "ev-037",
+      "probe": "ttft",
+      "label": "ttft serial #5",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 587,
+      "durationMs": 703,
+      "ts": "2026-10-16T14:57:46.770Z"
+    },
+    {
+      "id": "ev-038",
+      "probe": "ttft",
+      "label": "ttft concurrent r1 #1",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 706,
+      "durationMs": 787,
+      "ts": "2026-10-16T14:57:47.557Z"
+    },
+    {
+      "id": "ev-039",
+      "probe": "ttft",
+      "label": "ttft concurrent r1 #4",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 1507,
+      "durationMs": 1602,
+      "ts": "2026-10-16T14:57:48.372Z"
+    },
+    {
+      "id": "ev-040",
+      "probe": "ttft",
+      "label": "ttft concurrent r1 #3",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 1631,
+      "durationMs": 1715,
+      "ts": "2026-10-16T14:57:48.485Z"
+    },
+    {
+      "id": "ev-041",
+      "probe": "ttft",
+      "label": "ttft concurrent r1 #2",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 1656,
+      "durationMs": 1729,
+      "ts": "2026-10-16T14:57:48.499Z"
+    },
+    {
+      "id": "ev-042",
+      "probe": "ttft",
+      "label": "ttft concurrent r2 #2",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 722,
+      "durationMs": 808,
+      "ts": "2026-10-16T14:57:49.307Z"
+    },
+    {
+      "id": "ev-043",
+      "probe": "ttft",
+      "label": "ttft concurrent r2 #1",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 804,
+      "durationMs": 857,
+      "ts": "2026-10-16T14:57:49.356Z"
+    },
+    {
+      "id": "ev-044",
+      "probe": "ttft",
+      "label": "ttft concurrent r2 #3",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 911,
+      "durationMs": 1015,
+      "ts": "2026-10-16T14:57:49.514Z"
+    },
+    {
+      "id": "ev-045",
+      "probe": "ttft",
+      "label": "ttft concurrent r2 #4",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 969,
+      "durationMs": 1091,
+      "ts": "2026-10-16T14:57:49.590Z"
+    },
+    {
+      "id": "ev-046",
+      "probe": "ttft",
+      "label": "ttft concurrent r3 #3",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 940,
+      "durationMs": 1020,
+      "ts": "2026-10-16T14:57:50.610Z"
+    },
+    {
+      "id": "ev-047",
+      "probe": "ttft",
+      "label": "ttft concurrent r3 #1",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 957,
+      "durationMs": 1047,
+      "ts": "2026-10-16T14:57:50.637Z"
+    },
+    {
+      "id": "ev-048",
+      "probe": "ttft",
+      "label": "ttft concurrent r3 #2",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 946,
+      "durationMs": 1055,
+      "ts": "2026-10-16T14:57:50.645Z"
+    },
+    {
+      "id": "ev-049",
+      "probe": "ttft",
+      "label": "ttft concurrent r3 #4",
+      "request": {
+        "model": "deepseek-flash",
+        "stream": true,
+        "temperature": 0,
+        "maxTokens": 8,
+        "messageCount": 1,
+        "lastUserPreview": "请只回复一个词：pong",
+        "lastUserChars": 12,
+        "totalChars": 12
+      },
+      "response": {
+        "status": 200,
+        "textPreview": "pong",
+        "textChars": 4,
+        "usage": {
+          "prompt_tokens": 16,
+          "completion_tokens": 3,
+          "total_tokens": 19,
+          "cached_tokens": 0,
+          "reasoning_tokens": null
+        },
+        "usageRejected": null,
+        "attempts": 1,
+        "toolCallCount": 0,
+        "finish_reason": "stop",
+        "error": null
+      },
+      "ttftMs": 938,
+      "durationMs": 1063,
+      "ts": "2026-10-16T14:57:50.654Z"
+    }
+  ],
+  "notes": [
+    "seed=1161263187：同一 seed 与同一端点可复现探针内容；真实模型输出仍可能因服务端非确定性略有波动。",
+    "TTFT 为观测项，不计入总分。",
+    "诱饵请求仅记录行为供人工复核。",
+    "未加载指纹基线：无法对比历史指纹，同族换壳/静默降级不可检测。建议固定基线后用 --baseline 复测。",
+    "未判定项（不参与总分，权重已重新归一化）：context(未提供 --claimed-context，跳过上下文实测)、capability(未声明需要核验的能力（--expect none）)、ttft(TTFT 观测：串行 p50 923ms / 并发(4) p50 943ms（仅观测，不计分）)"
+  ]
+}

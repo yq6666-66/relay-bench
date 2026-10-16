@@ -1,0 +1,20 @@
+{
+ "tool": "veridrop",
+ "arm": "cross_family",
+ "rep": 3,
+ "verdict": "marginal",
+ "label": "flagged",
+ "seconds": 11.3,
+ "requests": 11,
+ "prompt_tokens": 333,
+ "completion_tokens": 213,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.00255,
+ "signals": {
+  "total_score": 94.75,
+  "model_consistency": "pass",
+  "token_billing": "pass",
+  "integrity": "pass",
+  "protocol": "fail"
+ }
+}

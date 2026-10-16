@@ -29,8 +29,9 @@ _SRC = Path(__file__).resolve().parent.parent
 # otherwise (pip-installed) the current directory or RELAY_BENCH_HOME.
 ROOT = Path(os.environ.get("RELAY_BENCH_HOME")
             or (_SRC if (_SRC / "configs").is_dir() else Path.cwd())).resolve()
+CLAIMED_ENV = os.environ.get("RELAY_BENCH_CLAIMED", "")
 TP = Path(os.environ.get("RELAY_BENCH_THIRD_PARTY", ROOT.parent / "third_party"))
-RUNS = ROOT / "runs"
+RUNS = ROOT / "runs" / ("" if CLAIMED_ENV in ("", "deepseek-v4-pro") else CLAIMED_ENV)
 RAW = ROOT / "results" / "raw"
 NODE = os.environ.get("RELAY_BENCH_NODE", "/workspace/tools/node22/bin/node")
 CLAIMED = os.environ.get("RELAY_BENCH_CLAIMED", "deepseek-v4-pro")
@@ -292,7 +293,7 @@ def enroll(samples: int) -> None:
     finally:
         proc.terminate()
         proc.wait()
-    (ROOT / "results" / "enroll_cost.json").write_text(json.dumps(ledger_stats(ledger)))
+    (ROOT / "results" / ("enroll_cost.json" if CLAIMED == "deepseek-v4-pro" else f"enroll_cost_{CLAIMED}.json")).write_text(json.dumps(ledger_stats(ledger)))
     print(ledger_stats(ledger))
 
 

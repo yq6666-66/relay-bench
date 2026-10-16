@@ -1,0 +1,13 @@
+{
+ "tool": "model-xray",
+ "arm": "cross_family",
+ "rep": 1,
+ "verdict": "ERROR",
+ "label": "error",
+ "seconds": 1408.8,
+ "requests": 8,
+ "prompt_tokens": 1847,
+ "completion_tokens": 1888,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.02119
+}

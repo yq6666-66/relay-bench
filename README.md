@@ -22,7 +22,7 @@ relay-bench proxy --arm honest --port 18900          # 单独启动一种配置
 relay-bench run --tools fpverify,model-xray --arms honest,inject --reps 5
 relay-bench report                        # 重新生成汇总
 ```
-客户端把 `base_url` 指向 `http://127.0.0.1:18900/v1`、模型名写 `deepseek-v4-pro` 即可。用 `RELAY_BENCH_CONFIG` 指向你自己的 arms 文件可以换上游或换声称模型。
+客户端把 `base_url` 指向 `http://127.0.0.1:18900/v1`、模型名写 `deepseek-v4-pro` 即可。用 `RELAY_BENCH_CONFIG` 指向你自己的 arms 文件可以换上游，`RELAY_BENCH_CLAIMED` 换声称模型（例：`RELAY_BENCH_CONFIG=configs/arms-flash.yaml RELAY_BENCH_CLAIMED=deepseek-flash`，运行目录自动分到 `runs/<模型>/`）。
 
 内置被测工具需自行克隆到 `../third_party/`（或设 `RELAY_BENCH_THIRD_PARTY`）：fpverify、model-xray、api-relay-audit（AGPL-3.0，只作为外部进程调用，本仓库不含其代码）、veridrop。
 
@@ -45,7 +45,7 @@ relay-bench report                        # 重新生成汇总
 
 跨家族配置用到的第三方网关只是取得非 DeepSeek 模型的一个来源，不是评测对象；本项目不评价、不排名任何真实中转站。
 
-## 当前结论（详见 `results/v0.2/report.md`、`results/v0.3/confirmation.md`、`results/v0.5/report.md`、`results/v0.6/report.md`）
+## 当前结论（详见 `results/v0.2/report.md`、`results/v0.3/confirmation.md`、`results/v0.5/report.md`、`results/v0.6/report.md`、`results/v0.7/report.md`）
 统计口径只做描述：每格 n/N 加 Wilson 95% 区间，不做显著性声明。
 - 换模型：fpverify 能抓跨家族和同族降级（各 5/5），model-xray 只抓跨家族。
 - 隐藏注入：没有工具的总判定能抓；api-relay-audit 的 token 注入子信号能抓，已在预注册确认集里复现。
@@ -53,6 +53,7 @@ relay-bench report                        # 重新生成汇总
 - 上下文截断：model-xray billing 斜率检查和 api-relay-audit 上下文步骤都能抓。
 - 仅流式替换：现有工具里没有一个能把它和 honest 区分开（model-xray 的报警跟 honest 一样；veridrop 流式样本不足，无法判定），见 `results/v0.5/report.md`。
 - 重放（相同请求返回缓存、usage 照抄，探索性，N=2–3）：fpverify 因重复采样塌缩判 FAIL，但归因成偷换；api-relay-audit 打开延迟检查（`api-relay-audit-lat`）后在本机能看到延迟异常；见 `results/v0.6/report.md`。
+- 声称模型换成 deepseek-flash（同家族探针，n≤3，不外推）：model-xray honest 误报 1/3；api-relay-audit token 注入子信号 inject 3/3、另有 1 次 cross_family 误报；fpverify 本版未运行。见 `results/v0.7/report.md`。
 - 误报：model-xray 在诚实配置上 5/5 warn；api-relay-audit 和 veridrop 的总判定在所有配置上都报异常，没有区分度。
 
 版本变更见 `CHANGELOG.md`。许可证 MIT。

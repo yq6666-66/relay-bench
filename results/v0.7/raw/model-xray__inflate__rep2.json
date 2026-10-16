@@ -1,0 +1,18 @@
+{
+ "tool": "model-xray",
+ "arm": "inflate",
+ "rep": 2,
+ "verdict": "warn",
+ "label": "flagged",
+ "seconds": 60.4,
+ "requests": 49,
+ "prompt_tokens": 65010,
+ "completion_tokens": 555,
+ "cache_hit_tokens": 62464,
+ "est_cost_usd": 0.0018,
+ "signals": {
+  "identity_level": "pass",
+  "billing_level": "pass",
+  "quality_level": "warn"
+ }
+}

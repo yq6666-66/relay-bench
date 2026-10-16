@@ -1,0 +1,19 @@
+{
+ "tool": "refcheck",
+ "arm": "honest",
+ "rep": 1,
+ "verdict": "PASS",
+ "label": "clean",
+ "seconds": 6.7,
+ "requests": 6,
+ "prompt_tokens": 68,
+ "completion_tokens": 34,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 6e-05,
+ "signals": {
+  "one_char_prompt_delta": 0,
+  "pangram_prompt_delta": 0,
+  "echo_ok_prompt_delta": 0,
+  "echo_completion_delta": 0
+ }
+}

@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.7 — 2026-10-16
+- Second claimed model: `deepseek-flash` probe (same family, cheaper), `configs/arms-flash.yaml`, no downgrade arm. Protocol pre-registered in `results/v0.7/PROTOCOL.md`; report `results/v0.7/report.md`, table from `python -m bench.report_v07`.
+- `RELAY_BENCH_CLAIMED` now also separates run directories (`runs/<model>/`) and the enroll cost file.
+- Outcome (N≤3, descriptive): P1 (model-xray honest warn ≤1/3) and P6 (veridrop flags every arm) reproduced; P3 not reproduced (one api-relay-audit token-injection flag on cross_family); P4 direction matched but only 2 reps per cell; P5 14/15 (one INCONCLUSIVE); P2 untestable — fpverify detection runs were not completed (deviation). model-xray cells have 2 reps.
+- Post-implementation DeepSeek review: 7 wording/classification fixes applied.
+
 ## v0.6 — 2026-10-16
 - First evaluation of the `replay` arm (identical non-streaming requests get the first answer back, usage copied). The protocol was pre-registered before any run (`results/v0.6/PROTOCOL.md`); report in `results/v0.6/report.md`, per-run table with cache-hit counts from `python -m bench.report_v06`.
 - Outcome (raw counts, N=2–3, exploratory): fpverify FAILed 2/2 because repeated sampling collapsed, while its own cache flag stayed empty (its stated reason, substitution, is likely wrong). The api-relay-audit latency variant raised latency_flag 3/3 on replay vs 0/3 on honest (local machine only, exploratory). refcheck missed it (usage copied); veridrop showed no discrimination; model-xray and default api-relay-audit never triggered a replay.
