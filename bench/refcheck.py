@@ -18,7 +18,8 @@ from typing import Any
 import httpx
 
 ROOT = Path(__file__).resolve().parent.parent
-BASELINE = ROOT / "results" / "refcheck_baseline_deepseek-v4-pro.json"
+CLAIMED = os.environ.get("RELAY_BENCH_CLAIMED", "deepseek-v4-pro")
+BASELINE = ROOT / "results" / f"refcheck_baseline_{CLAIMED}.json"
 PROBES = {
     "one_char": "a",
     "pangram": "The quick brown fox jumps over the lazy dog.",
@@ -72,7 +73,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["enroll"])
     ap.parse_args()
-    ref = measure("https://api.deepseek.com", os.environ["DEEPSEEK_API_KEY"], "deepseek-v4-pro",
+    ref = measure("https://api.deepseek.com", os.environ["DEEPSEEK_API_KEY"], CLAIMED,
                   extra={"thinking": {"type": "disabled"}}, reps=3)
     BASELINE.write_text(json.dumps(ref, indent=1), encoding="utf-8")
     print(json.dumps(ref))

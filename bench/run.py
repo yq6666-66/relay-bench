@@ -33,9 +33,9 @@ TP = Path(os.environ.get("RELAY_BENCH_THIRD_PARTY", ROOT.parent / "third_party")
 RUNS = ROOT / "runs"
 RAW = ROOT / "results" / "raw"
 NODE = os.environ.get("RELAY_BENCH_NODE", "/workspace/tools/node22/bin/node")
-CLAIMED = "deepseek-v4-pro"
+CLAIMED = os.environ.get("RELAY_BENCH_CLAIMED", "deepseek-v4-pro")
 ARMS = ["honest", "cross_family", "downgrade", "inject"]
-FP_REF = ROOT / "results" / "fpverify_ref_deepseek-v4-pro.json"
+FP_REF = ROOT / "results" / f"fpverify_ref_{CLAIMED}.json"
 FP_MAX_QUERIES = int(os.environ.get("FP_MAX_QUERIES", "400"))
 
 # USD per 1M tokens, DeepSeek peak prices (conservative, 2026-10). kapibala price unknown:
