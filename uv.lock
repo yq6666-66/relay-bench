@@ -459,8 +459,8 @@ wheels = [
 
 [[package]]
 name = "relay-bench"
-version = "0.1.0"
-source = { virtual = "." }
+version = "0.4.0"
+source = { editable = "." }
 dependencies = [
     { name = "httpx" },
     { name = "pyyaml" },

@@ -31,3 +31,13 @@ arms:
     model: deepseek-v4-pro
     truth: tampered
     truncate_chars: 1000
+  stream_split:
+    upstream: deepseek
+    model: deepseek-v4-pro
+    stream_model: deepseek-flash
+    truth: substituted_stream_only
+  replay:
+    upstream: deepseek
+    model: deepseek-v4-pro
+    replay: true
+    truth: replayed_cache

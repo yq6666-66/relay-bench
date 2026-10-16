@@ -55,6 +55,8 @@ def build_upstream_body(body: dict[str, Any], cfg: dict[str, Any], arm_name: str
     up = cfg["upstreams"][arm["upstream"]]
     out = dict(body)
     out["model"] = arm["model"]
+    if body.get("stream") and arm.get("stream_model"):
+        out["model"] = arm["stream_model"]  # stream_split arm: only streaming traffic is swapped
     for k in up.get("drop_keys", []):
         out.pop(k, None)
     out.update(up.get("extra_body", {}))
@@ -90,13 +92,26 @@ def inflate_usage(obj: Any, factors: dict[str, float] | None) -> Any:
     return obj
 
 
+def cache_key(body: dict[str, Any]) -> str:
+    """Normalized request identity for the replay arm (all fields; key order ignored)."""
+    import hashlib
+
+    return hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()
+
+
 def create_app(cfg: dict[str, Any], arm_name: str, ledger_path: str | Path,
                transport: httpx.AsyncBaseTransport | None = None) -> Starlette:
     arm = cfg["arms"][arm_name]
     up = cfg["upstreams"][arm["upstream"]]
     claimed = cfg["claimed_model"]
     inflate = arm.get("inflate")
+    replay = bool(arm.get("replay"))
+    cache: dict[str, str] = {}
     key = os.environ.get(up["key_env"], "")
+    if transport is None and up.get("type") == "mock":
+        from proxy.mock import mock_transport
+
+        transport = mock_transport()
     client = httpx.AsyncClient(base_url=up["base_url"].rstrip("/"), timeout=180,
                                transport=transport,
                                headers={"Authorization": f"Bearer {key}"})
@@ -105,7 +120,8 @@ def create_app(cfg: dict[str, Any], arm_name: str, ledger_path: str | Path,
 
     def log(entry: dict[str, Any]) -> None:
         entry.update(ts=time.time(), arm=arm_name, upstream=arm["upstream"],
-                     upstream_model=arm["model"], claimed=claimed)
+                     upstream_model=(arm.get("stream_model") or arm["model"]) if entry.get("stream")
+                     else arm["model"], claimed=claimed)
         with ledger.open("a", encoding="utf-8") as fh:
             fh.write(redact(json.dumps(entry, ensure_ascii=False)) + "\n")
 
@@ -120,6 +136,10 @@ def create_app(cfg: dict[str, Any], arm_name: str, ledger_path: str | Path,
                                            "type": "invalid_request_error"}}, status_code=404)
         ub = build_upstream_body(body, cfg, arm_name)
         if not ub.get("stream"):
+            ck = cache_key(ub) if replay else ""
+            if ck in cache:  # replay arm: serve the stored answer, usage copied, no upstream call
+                log({"status": 200, "usage": None, "stream": False, "replayed": True})
+                return JSONResponse(json.loads(cache[ck]))
             r = await client.post("/chat/completions", json=ub)
             for delay in RETRY_DELAYS:
                 if r.status_code not in RETRY_STATUS:
@@ -132,6 +152,8 @@ def create_app(cfg: dict[str, Any], arm_name: str, ledger_path: str | Path,
                 log({"status": r.status_code, "usage": None, "stream": False})
                 return Response(r.content, status_code=r.status_code)
             log({"status": r.status_code, "usage": data.get("usage"), "stream": False})
+            if replay and r.status_code == 200:
+                cache[ck] = json.dumps(rewrite_model(data, claimed))
             return JSONResponse(inflate_usage(rewrite_model(data, claimed), inflate),
                                 status_code=r.status_code)
 
@@ -191,8 +213,14 @@ def main() -> None:
     p.add_argument("--arm", required=True)
     p.add_argument("--port", type=int, default=18900)
     p.add_argument("--ledger", default="runs/ledger.jsonl")
+    p.add_argument("--offline", action="store_true",
+                   help="deterministic mock upstream; validates plumbing only")
     a = p.parse_args()
     cfg = load_config(a.config)
+    if a.offline:
+        from proxy.mock import mock_config
+
+        cfg = mock_config(cfg)
     uvicorn.run(create_app(cfg, a.arm, a.ledger), host="127.0.0.1", port=a.port,
                 log_level="warning")
 

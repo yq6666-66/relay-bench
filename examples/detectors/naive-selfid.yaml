@@ -1,0 +1,8 @@
+name: naive-selfid
+cmd: ["python3", "naive_selfid.py", "--base-url", "{base_url}", "--model", "{model}",
+      "--out", "{out}/report.json"]
+report: "{out}/report.json"
+verdict_field: flagged
+flagged: [true]
+clean: [false]
+timeout: 300

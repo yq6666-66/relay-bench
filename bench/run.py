@@ -18,12 +18,17 @@ import socket
 import subprocess
 import sys
 import time
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
 from proxy.app import redact
 
-ROOT = Path(__file__).resolve().parent.parent
+_SRC = Path(__file__).resolve().parent.parent
+# Working directory for configs/, runs/ and results/: the source checkout when run from it,
+# otherwise (pip-installed) the current directory or RELAY_BENCH_HOME.
+ROOT = Path(os.environ.get("RELAY_BENCH_HOME")
+            or (_SRC if (_SRC / "configs").is_dir() else Path.cwd())).resolve()
 TP = Path(os.environ.get("RELAY_BENCH_THIRD_PARTY", ROOT.parent / "third_party"))
 RUNS = ROOT / "runs"
 RAW = ROOT / "results" / "raw"
@@ -50,11 +55,16 @@ def free_port() -> int:
     return port
 
 
+OFFLINE = os.environ.get("RELAY_BENCH_OFFLINE") == "1"
+CONFIG = os.environ.get("RELAY_BENCH_CONFIG", "configs/arms.yaml")
+
+
 def start_proxy(arm: str, ledger: Path) -> tuple[subprocess.Popen[bytes], str]:
     port = free_port()
     proc = subprocess.Popen(
         [sys.executable, "-m", "proxy.app", "--arm", arm, "--port", str(port),
-         "--ledger", str(ledger)], cwd=ROOT)
+         "--ledger", str(ledger), "--config", CONFIG, *(["--offline"] if OFFLINE else [])],
+        cwd=ROOT)
     for _ in range(50):
         try:
             socket.create_connection(("127.0.0.1", port), timeout=0.2).close()
@@ -139,19 +149,23 @@ def parse_ara(report: dict[str, Any]) -> tuple[str, str, dict[str, object]]:
         "token_injection_flag": bool(tok and tok.get("level") in ("yellow", "red")),
         "token_injection_delta": int(m.group(1)) if m else None,
         "red_flags": sum(1 for f in flags if f.get("level") == "red"),
+        "latency_flag": any(re.search(r"latency|bimodal", str(f.get("message", "")), re.IGNORECASE)
+                            and f.get("level") in ("yellow", "red") for f in flags),
         "context_flag": any(re.search(r"context|truncat", str(f.get("message", "")), re.IGNORECASE)
                             and f.get("level") in ("yellow", "red") for f in flags),
     }
     return risk, label, signals
 
 
-def run_api_relay_audit(base: str, out: Path, context: bool = False) -> tuple[str, str]:
+def run_api_relay_audit(base: str, out: Path, context: bool = False,
+                        latency: bool = False) -> tuple[str, str]:
     report = out / "ara_report.json"
     env = dict(os.environ, ARA_DUMMY_KEY="local-dummy")
     cmd = [sys.executable, "audit.py", "--key-env", "ARA_DUMMY_KEY", "--url", base,
            "--model", CLAIMED, "--format", "json", "--output", str(report)]
-    cmd += ([s for s in ARA_SKIPS if s != "--skip-context"] + ["--fast-context"]
-            if context else ARA_SKIPS)
+    skips = [s for s in ARA_SKIPS if not (context and s == "--skip-context")
+             and not (latency and s == "--skip-latency-variance")]
+    cmd += skips + (["--fast-context"] if context else [])
     p = subprocess.run(cmd, check=False, cwd=TP / "api-relay-audit", capture_output=True,
                        text=True, timeout=1800, env=env)
     (out / "stdout.txt").write_text(redact(p.stdout + p.stderr), encoding="utf-8")
@@ -216,12 +230,22 @@ def run_veridrop(base: str, out: Path) -> tuple[str, str]:
 TOOLS = {"fpverify": run_fpverify, "model-xray": run_model_xray,
          "api-relay-audit": run_api_relay_audit, "refcheck": run_refcheck,
          "veridrop": run_veridrop,
-         "api-relay-audit-ctx": lambda b, o: run_api_relay_audit(b, o, context=True)}
+         "api-relay-audit-ctx": lambda b, o: run_api_relay_audit(b, o, context=True),
+         "api-relay-audit-lat": lambda b, o: run_api_relay_audit(b, o, latency=True)}
+
+
+def tool_runner(tool: str) -> Callable[[str, Path], tuple[str, str]]:
+    if tool.endswith((".yaml", ".yml")):
+        from bench.plugin import load_plugin
+
+        return load_plugin(Path(tool))
+    return TOOLS[tool]
 
 
 def one(tool: str, arm: str, rep: int, raw: Path = RAW) -> dict[str, object]:
-    out = RUNS / tool / arm / f"rep{rep}"
-    dest = raw / f"{tool}__{arm}__rep{rep}.json"
+    name = Path(tool).stem if tool.endswith((".yaml", ".yml")) else tool
+    out = RUNS / ("mock" if OFFLINE else "") / name / arm / f"rep{rep}"
+    dest = raw / f"{name}__{arm}__rep{rep}.json"
     if dest.exists():
         return dict(json.loads(dest.read_text(encoding="utf-8")))
     if out.exists():
@@ -231,13 +255,16 @@ def one(tool: str, arm: str, rep: int, raw: Path = RAW) -> dict[str, object]:
     proc, base = start_proxy(arm, ledger)
     t0 = time.time()
     try:
-        verdict, label = TOOLS[tool](base, out)
+        verdict, label = tool_runner(tool)(base, out)
     finally:
         proc.terminate()
         proc.wait()
-    rec: dict[str, object] = {"tool": tool, "arm": arm, "rep": rep, "verdict": verdict,
+    rec: dict[str, object] = {"tool": name, "arm": arm, **({"mock": True} if OFFLINE else {}),
+                              "rep": rep, "verdict": verdict,
                               "label": label, "seconds": round(time.time() - t0, 1),
                               **ledger_stats(ledger)}
+    if OFFLINE:
+        rec["est_cost_usd"] = 0.0  # mock upstream: nothing was billed
     sig = out / "signals.json"
     if sig.exists():
         rec["signals"] = json.loads(sig.read_text(encoding="utf-8"))
@@ -246,7 +273,7 @@ def one(tool: str, arm: str, rep: int, raw: Path = RAW) -> dict[str, object]:
     for f in out.glob("*.json"):
         if f.name != "ledger.jsonl":
             (raw / "reports").mkdir(exist_ok=True)
-            (raw / "reports" / f"{tool}__{arm}__rep{rep}__{f.name}").write_text(
+            (raw / "reports" / f"{name}__{arm}__rep{rep}__{f.name}").write_text(
                 redact(f.read_text(encoding="utf-8")), encoding="utf-8")
     print(json.dumps(rec, ensure_ascii=False), flush=True)
     return rec
