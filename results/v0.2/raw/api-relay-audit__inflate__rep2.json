@@ -1,0 +1,18 @@
+{
+ "tool": "api-relay-audit",
+ "arm": "inflate",
+ "rep": 2,
+ "verdict": "MEDIUM",
+ "label": "flagged",
+ "seconds": 70.7,
+ "requests": 15,
+ "prompt_tokens": 489,
+ "completion_tokens": 1933,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.0083,
+ "signals": {
+  "token_injection_flag": false,
+  "token_injection_delta": null,
+  "red_flags": 2
+ }
+}

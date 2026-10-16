@@ -1,0 +1,13 @@
+{
+ "tool": "model-xray",
+ "arm": "inflate",
+ "rep": 3,
+ "verdict": "warn",
+ "label": "flagged",
+ "seconds": 47.3,
+ "requests": 49,
+ "prompt_tokens": 65017,
+ "completion_tokens": 462,
+ "cache_hit_tokens": 63744,
+ "est_cost_usd": 0.00631
+}

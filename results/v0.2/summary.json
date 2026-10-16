@@ -1,0 +1,214 @@
+{
+ "api-relay-audit": {
+  "cross_family": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "MEDIUM",
+    "MEDIUM",
+    "MEDIUM"
+   ],
+   "mean_requests": 15.0,
+   "cost_usd": 0.014,
+   "mean_seconds": 42.2
+  },
+  "downgrade": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "MEDIUM",
+    "MEDIUM",
+    "MEDIUM"
+   ],
+   "mean_requests": 15.0,
+   "cost_usd": 0.0039,
+   "mean_seconds": 35.8
+  },
+  "honest": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "MEDIUM",
+    "MEDIUM",
+    "MEDIUM"
+   ],
+   "mean_requests": 15.0,
+   "cost_usd": 0.0177,
+   "mean_seconds": 63.4
+  },
+  "inflate": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "MEDIUM",
+    "MEDIUM",
+    "MEDIUM"
+   ],
+   "mean_requests": 15.0,
+   "cost_usd": 0.0183,
+   "mean_seconds": 60.9
+  },
+  "inject": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "MEDIUM",
+    "MEDIUM",
+    "MEDIUM"
+   ],
+   "mean_requests": 15.0,
+   "cost_usd": 0.0083,
+   "mean_seconds": 37.5
+  }
+ },
+ "fpverify": {
+  "inflate": {
+   "flagged": 0,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.0,
+    0.56
+   ],
+   "verdicts": [
+    "PASS",
+    "PASS",
+    "PASS"
+   ],
+   "mean_requests": 400.0,
+   "cost_usd": 0.0665,
+   "mean_seconds": 515.2
+  }
+ },
+ "model-xray": {
+  "inflate": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "warn",
+    "warn",
+    "warn"
+   ],
+   "mean_requests": 49.0,
+   "cost_usd": 0.0191,
+   "mean_seconds": 49.3
+  }
+ },
+ "refcheck": {
+  "cross_family": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "FAIL",
+    "FAIL",
+    "FAIL"
+   ],
+   "mean_requests": 6.0,
+   "cost_usd": 0.0024,
+   "mean_seconds": 17.5
+  },
+  "downgrade": {
+   "flagged": 0,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.0,
+    0.56
+   ],
+   "verdicts": [
+    "PASS",
+    "PASS",
+    "PASS"
+   ],
+   "mean_requests": 6.0,
+   "cost_usd": 0.0002,
+   "mean_seconds": 5.5
+  },
+  "honest": {
+   "flagged": 0,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.0,
+    0.56
+   ],
+   "verdicts": [
+    "PASS",
+    "PASS",
+    "PASS"
+   ],
+   "mean_requests": 6.0,
+   "cost_usd": 0.0007,
+   "mean_seconds": 6.4
+  },
+  "inflate": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "FAIL",
+    "FAIL",
+    "FAIL"
+   ],
+   "mean_requests": 6.0,
+   "cost_usd": 0.0007,
+   "mean_seconds": 7.1
+  },
+  "inject": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "FAIL",
+    "FAIL",
+    "FAIL"
+   ],
+   "mean_requests": 6.0,
+   "cost_usd": 0.0015,
+   "mean_seconds": 6.9
+  }
+ }
+}

@@ -16,3 +16,12 @@
 - 它的 token 注入步骤是目前唯一能抓到 inject 配置的现成手段：3/3 检出，其他配置 0/9 误报。原理是比较 prompt_tokens 的增量，与 v0.1 里观察到 inject 臂 prompt_tokens 翻倍一致。
 - 它没有设计对付换模型的手段，所以 cross_family 和 downgrade 只能靠整体 MEDIUM 报异常，没有意义。
 - N=3 的区间很宽，只能算冒烟，不是正式结果。
+
+## P6：token 虚报臂 + 自带参考检查（2026-10-16）
+
+- inflate 臂：上游是真的 deepseek-v4-pro，返回给客户端的 usage 中 prompt/completion 都乘 1.3（流式和非流式都改；ledger 里记的是真实用量）。
+- refcheck（自带基线，单列不排名）：发三条固定短提示（"a"、英文全字母句、"只回 OK"），读 prompt_tokens/completion_tokens，与直连官方 API 入册的基线比较，任一偏差 >2 token 即判 FAIL。每次检查 6 个请求，成本不到 $0.001。
+- 结果见 `matrix.md`：
+  - refcheck：honest 0/3、downgrade 0/3（同一分词器，看不出来，符合预期）、inject 3/3（每条多 34 token）、inflate 3/3、cross_family 3/3（分词器不同）。
+  - 三个第三方工具对 inflate 都没有专门的信号：fpverify 3/3 PASS；model-xray 3/3 warn，和它在诚实配置上的误报一样，不能算检出；api-relay-audit 3/3 MEDIUM，与诚实配置相同，token 注入子信号 0/3。
+- 局限：refcheck 依赖已知的官方基线和固定提示，一旦被识别为探针就可能被规避（SHIM A5 类攻击）；对乘数很小的虚报（<15%），短提示分辨不出来。
