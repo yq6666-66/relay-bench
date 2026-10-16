@@ -3,6 +3,7 @@
 Usage:
   uv run python -m bench.run enroll                 # fpverify reference via honest arm
   uv run python -m bench.run matrix --tools fpverify,model-xray --reps 5
+  uv run python -m bench.run matrix --tools api-relay-audit --reps 3 --raw-dir results/v0.2/raw
 Outcome labels: flagged / clean / error.
 """
 
@@ -11,12 +12,14 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import socket
 import subprocess
 import sys
 import time
 from pathlib import Path
+from typing import Any
 
 from proxy.app import redact
 
@@ -106,12 +109,54 @@ def run_model_xray(base: str, out: Path) -> tuple[str, str]:
     return verdict, label
 
 
-TOOLS = {"fpverify": run_fpverify, "model-xray": run_model_xray}
+# api-relay-audit is AGPL-3.0: invoked only as an external process, no code is copied.
+ARA_SKIPS = ["--skip-context", "--skip-infra", "--skip-web3-injection", "--skip-latency-variance",
+             "--skip-channel-classifier", "--skip-infra-fingerprint", "--skip-error-leakage"]
+ARA_FLAGGED_RISK = {"MEDIUM", "HIGH", "CRITICAL"}
 
 
-def one(tool: str, arm: str, rep: int) -> dict[str, object]:
+def parse_ara(report: dict[str, Any]) -> tuple[str, str, dict[str, object]]:
+    """Map an api-relay-audit JSON report to (verdict, label, sub-signals).
+
+    The headline label follows the tool's own risk_level. The token-injection
+    step is also recorded separately, because it is the step aimed at hidden prompts.
+    """
+    risk = str(report.get("risk_level") or "ERROR").upper()
+    label = "flagged" if risk in ARA_FLAGGED_RISK else ("clean" if risk == "LOW" else "error")
+    flags = [f for f in report.get("flags") or [] if isinstance(f, dict)]
+    tok = next((f for f in flags if re.search(r"\binjection detected\b",
+                                              str(f.get("message", "")), re.IGNORECASE)), None)
+    m = re.search(r"~\s*(\d+)\s*tokens", str(tok.get("message", ""))) if tok else None
+    signals: dict[str, object] = {
+        "token_injection_flag": bool(tok and tok.get("level") in ("yellow", "red")),
+        "token_injection_delta": int(m.group(1)) if m else None,
+        "red_flags": sum(1 for f in flags if f.get("level") == "red"),
+    }
+    return risk, label, signals
+
+
+def run_api_relay_audit(base: str, out: Path) -> tuple[str, str]:
+    report = out / "ara_report.json"
+    env = dict(os.environ, ARA_DUMMY_KEY="local-dummy")
+    cmd = [sys.executable, "audit.py", "--key-env", "ARA_DUMMY_KEY", "--url", base,
+           "--model", CLAIMED, "--format", "json", "--output", str(report), *ARA_SKIPS]
+    p = subprocess.run(cmd, check=False, cwd=TP / "api-relay-audit", capture_output=True,
+                       text=True, timeout=1800, env=env)
+    (out / "stdout.txt").write_text(redact(p.stdout + p.stderr), encoding="utf-8")
+    if not report.exists():
+        return "ERROR", "error"
+    verdict, label, signals = parse_ara(json.loads(report.read_text(encoding="utf-8")))
+    (out / "signals.json").write_text(json.dumps(signals), encoding="utf-8")
+    return verdict, label
+
+
+TOOLS = {"fpverify": run_fpverify, "model-xray": run_model_xray,
+         "api-relay-audit": run_api_relay_audit}
+
+
+def one(tool: str, arm: str, rep: int, raw: Path = RAW) -> dict[str, object]:
     out = RUNS / tool / arm / f"rep{rep}"
-    dest = RAW / f"{tool}__{arm}__rep{rep}.json"
+    dest = raw / f"{tool}__{arm}__rep{rep}.json"
     if dest.exists():
         return dict(json.loads(dest.read_text(encoding="utf-8")))
     if out.exists():
@@ -128,12 +173,15 @@ def one(tool: str, arm: str, rep: int) -> dict[str, object]:
     rec: dict[str, object] = {"tool": tool, "arm": arm, "rep": rep, "verdict": verdict,
                               "label": label, "seconds": round(time.time() - t0, 1),
                               **ledger_stats(ledger)}
-    RAW.mkdir(parents=True, exist_ok=True)
+    sig = out / "signals.json"
+    if sig.exists():
+        rec["signals"] = json.loads(sig.read_text(encoding="utf-8"))
+    raw.mkdir(parents=True, exist_ok=True)
     dest.write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
     for f in out.glob("*.json"):
         if f.name != "ledger.jsonl":
-            (RAW / "reports").mkdir(exist_ok=True)
-            (RAW / "reports" / f"{tool}__{arm}__rep{rep}__{f.name}").write_text(
+            (raw / "reports").mkdir(exist_ok=True)
+            (raw / "reports" / f"{tool}__{arm}__rep{rep}__{f.name}").write_text(
                 redact(f.read_text(encoding="utf-8")), encoding="utf-8")
     print(json.dumps(rec, ensure_ascii=False), flush=True)
     return rec
@@ -166,6 +214,7 @@ def main() -> None:
     m.add_argument("--arms", default=",".join(ARMS))
     m.add_argument("--reps", type=int, default=5)
     m.add_argument("--budget", type=float, default=2.5)
+    m.add_argument("--raw-dir", default=str(RAW), help="where per-run records go")
     a = ap.parse_args()
     if a.cmd == "enroll":
         enroll(a.samples)
@@ -174,7 +223,7 @@ def main() -> None:
     for rep in range(1, a.reps + 1):  # interleave reps so a budget stop leaves balanced cells
         for tool in a.tools.split(","):
             for arm in a.arms.split(","):
-                rec = one(tool, arm, rep)
+                rec = one(tool, arm, rep, Path(a.raw_dir))
                 spent += float(str(rec["est_cost_usd"]))
                 if spent > a.budget:
                     print(f"budget {a.budget} exceeded at {spent:.3f}; stopping", flush=True)
