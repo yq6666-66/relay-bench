@@ -119,6 +119,23 @@
    "mean_requests": 15.0,
    "cost_usd": 0.0083,
    "mean_seconds": 37.5
+  },
+  "truncate": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "MEDIUM",
+    "MEDIUM",
+    "MEDIUM"
+   ],
+   "mean_requests": 15.0,
+   "cost_usd": 0.0159,
+   "mean_seconds": 50.1
   }
  },
  "fpverify": {
@@ -138,6 +155,23 @@
    "mean_requests": 400.0,
    "cost_usd": 0.0665,
    "mean_seconds": 515.2
+  },
+  "truncate": {
+   "flagged": 0,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.0,
+    0.56
+   ],
+   "verdicts": [
+    "PASS",
+    "PASS",
+    "PASS"
+   ],
+   "mean_requests": 400.0,
+   "cost_usd": 0.0666,
+   "mean_seconds": 724.8
   }
  },
  "model-xray": {

@@ -30,4 +30,11 @@ uv run python -m proxy.app --arm honest --port 18900   # 启动一种配置
 
 被测工具需自行克隆到 `../third_party/`（或设 `RELAY_BENCH_THIRD_PARTY`）：fpverify、model-xray、api-relay-audit（AGPL-3.0，只作为外部进程调用，本仓库不含其代码）。
 
+## v0.2 结论速览（详见 `results/v0.2/report.md`）
+- 换模型：fpverify 能抓跨家族和同族降级（各 5/5），model-xray 只抓跨家族。
+- 隐藏注入：没有工具的总判定能抓；只有 api-relay-audit 的 token 注入子信号能抓（3/3，其他配置 0/15）。
+- token 虚报（usage ×1.3）：第三方工具全部漏掉；只有自带的 refcheck 能抓。
+- 上下文截断：model-xray billing 斜率检查和 api-relay-audit 上下文步骤都能抓（3/3）。
+- 误报：model-xray 在诚实配置上 5/5 warn；api-relay-audit 和 veridrop 的总判定在所有配置上都报异常，没有区分度。
+
 许可证 MIT。
