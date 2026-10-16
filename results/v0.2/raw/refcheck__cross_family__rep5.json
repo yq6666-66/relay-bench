@@ -1,0 +1,19 @@
+{
+ "tool": "refcheck",
+ "arm": "cross_family",
+ "rep": 5,
+ "verdict": "FAIL",
+ "label": "flagged",
+ "seconds": 9.7,
+ "requests": 6,
+ "prompt_tokens": 80,
+ "completion_tokens": 73,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.00083,
+ "signals": {
+  "one_char_prompt_delta": 2,
+  "pangram_prompt_delta": 2,
+  "echo_ok_prompt_delta": 2,
+  "echo_completion_delta": 4
+ }
+}

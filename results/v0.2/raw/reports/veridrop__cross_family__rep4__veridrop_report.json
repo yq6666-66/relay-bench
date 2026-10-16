@@ -1,0 +1,473 @@
+{
+  "protocol": "openai",
+  "tier": "behavioral",
+  "tier_title": "行为/协议级验证",
+  "tier_message": "本检测无法可靠区分高配模型真品与低配模型伪装。我们检测的是中转站接口是否符合 OpenAI Chat Completions 协议规范、能力是否完整、usage 字段是否符合官方响应形状。",
+  "base_url": "http://127.0.0.1:53971/v1",
+  "api_key_masked": "local-••••••my",
+  "target_model": "deepseek-v4-pro",
+  "mode": "standard",
+  "timestamp": "2026-10-16T11:51:14.688061Z",
+  "total_score": 94.75,
+  "verdict": "marginal",
+  "results": [
+    {
+      "name": "basic_request",
+      "display_name": "基础请求",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 15.0,
+      "details": {
+        "response_text": "pong",
+        "object": "chat.completion",
+        "model": "deepseek-v4-pro",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 14,
+          "completion_tokens": 5,
+          "total_tokens": 19
+        },
+        "reasoning_budget_exhausted": false
+      },
+      "duration_ms": 3308,
+      "error": null
+    },
+    {
+      "name": "model_consistency",
+      "display_name": "模型一致性",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 15.0,
+      "details": {
+        "request_model": "deepseek-v4-pro",
+        "response_model": "deepseek-v4-pro",
+        "model_match": true,
+        "n_runs": 3,
+        "completion_tokens_seq": [
+          39,
+          46,
+          44
+        ],
+        "stability_cv": 0.068,
+        "stability_label": "stable"
+      },
+      "duration_ms": 8175,
+      "error": null
+    },
+    {
+      "name": "function_calling",
+      "display_name": "函数调用",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 15.0,
+      "details": {
+        "sub_checks": {
+          "has_tool_call": {
+            "value": true,
+            "pass": true
+          },
+          "id_prefix": {
+            "value": "call_82c4a97b114c423491b007eae4502c0f",
+            "pass": true
+          },
+          "type": {
+            "value": "function",
+            "pass": true
+          },
+          "name": {
+            "value": "get_current_weather",
+            "pass": true
+          },
+          "arguments_json": {
+            "value": {
+              "city": "Boston, MA",
+              "unit": "celsius"
+            },
+            "pass": true
+          }
+        },
+        "finish_reason": "tool_calls"
+      },
+      "duration_ms": 3461,
+      "error": null
+    },
+    {
+      "name": "structured_output",
+      "display_name": "结构化输出",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 15.0,
+      "details": {
+        "response_text": "{\"nonce\":\"openai-detector\",\"ok\":true}",
+        "parsed": {
+          "nonce": "openai-detector",
+          "ok": true
+        },
+        "json_parse": true,
+        "schema_match": true,
+        "markdown_json_seen": false,
+        "evaluation_zh": "结构化输出正常: 返回内容是纯 JSON,且字段符合 schema。",
+        "finish_reason": "stop"
+      },
+      "duration_ms": 4112,
+      "error": null
+    },
+    {
+      "name": "integrity",
+      "display_name": "流式一致性",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 15.0,
+      "details": {
+        "non_stream_text": "veridrop stream check",
+        "stream_text": "veridrop stream check",
+        "text_match": true,
+        "non_stream_finish_reason": "stop",
+        "stream_finish_reason": "stop",
+        "finish_match": true,
+        "non_stream_usage": {
+          "prompt_tokens": 15,
+          "completion_tokens": 9,
+          "total_tokens": 24
+        },
+        "stream_usage": {
+          "prompt_tokens": 15,
+          "completion_tokens": 9,
+          "total_tokens": 24
+        },
+        "usage_match": true,
+        "stream_chunk_count": 9
+      },
+      "duration_ms": 6197,
+      "error": null
+    },
+    {
+      "name": "token_billing",
+      "display_name": "Token 计费",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 10.0,
+      "details": {
+        "sub_checks": {
+          "usage_present": {
+            "pass": true,
+            "short_usage": {
+              "prompt_tokens": 11,
+              "completion_tokens": 5,
+              "total_tokens": 16
+            },
+            "long_usage": {
+              "prompt_tokens": 95,
+              "completion_tokens": 5,
+              "total_tokens": 100
+            }
+          },
+          "usage_arithmetic": {
+            "pass": true,
+            "note": "total_tokens 应等于 prompt_tokens + completion_tokens"
+          },
+          "prompt_token_delta": {
+            "short_prompt_tokens": 11,
+            "long_prompt_tokens": 95,
+            "delta": 84,
+            "expected_range": [
+              45,
+              130
+            ],
+            "pass": true
+          },
+          "completion_tokens": {
+            "short_completion_tokens": 5,
+            "long_completion_tokens": 5,
+            "short_text": "ok",
+            "long_text": "ok",
+            "pass": true
+          },
+          "stream_usage": {
+            "non_stream_usage": {
+              "prompt_tokens": 11,
+              "completion_tokens": 5,
+              "total_tokens": 16
+            },
+            "stream_usage": {
+              "prompt_tokens": 11,
+              "completion_tokens": 5,
+              "total_tokens": 16
+            },
+            "stream_chunk_count": 5,
+            "stream_error": null,
+            "pass": true,
+            "note": ""
+          },
+          "normal_usage": {
+            "comparison_available": false,
+            "pass": true,
+            "score": 100.0,
+            "note": "仅做本次响应自洽检查"
+          }
+        },
+        "risk_level": "low",
+        "evaluation_zh": "Token 数基本可信: usage 加法自洽,加长文本带来的 token 增量合理,流式和非流式统计也能对上。"
+      },
+      "duration_ms": 8271,
+      "error": null
+    },
+    {
+      "name": "protocol",
+      "display_name": "协议规范性",
+      "status": "fail",
+      "score": 65.0,
+      "weight": 15.0,
+      "details": {
+        "observation_count": 9,
+        "critical_issue_count": 9,
+        "major_issue_count": 0,
+        "issues": [
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "resp_067d2a73b4eee7b0016ad20fab6920819b8cb54d040b2dc870"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "resp_04fe1fd869787b26016ad20facb764819b80810fa925dca266"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "resp_0be4f63c8e2d16e5016ad20facb4d88198a70f2ceb2866c2e2"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "resp_066585ed6d7ab7e4016ad20fadd5e8819888bbb425384ff845"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "resp_0a50d49c4f0b6ebf016ad20fae3abc819990e3d1387376e765"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "resp_0a1394071e5f889c016ad20faf0de0819ba1a2dfb0f8b11e21"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "resp_03abe3641f4729e9016ad20faf8918819bb0bc9bb16c08d40f"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "resp_0a088b82f297e62c016ad20fb094b4819ba28fe5d713b1316a"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "resp_04fabddc397886dc016ad20fb1b2f48199b8c75ed7854f8f37"
+          }
+        ],
+        "fingerprints": [
+          {
+            "id_prefix": "resp_",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": false,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_tokens",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "resp_",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": false,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_tokens",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "resp_",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "tool_calls"
+            ],
+            "system_fingerprint_present": false,
+            "tool_call_id_prefixes": [
+              "call_"
+            ],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_tokens",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "resp_",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": false,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_tokens",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "resp_",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": false,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_tokens",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "resp_",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": false,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_tokens",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "resp_",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": false,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_tokens",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "resp_",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": false,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_tokens",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "resp_",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": false,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_tokens",
+              "total_tokens"
+            ]
+          }
+        ]
+      },
+      "duration_ms": null,
+      "error": null
+    },
+    {
+      "name": "long_context",
+      "display_name": "长上下文真实性",
+      "status": "skip",
+      "score": 0.0,
+      "weight": 15.0,
+      "details": {
+        "skip_reason": "mode-excluded"
+      },
+      "duration_ms": null,
+      "error": null
+    }
+  ],
+  "performance": {
+    "total_latency_ms": 8296,
+    "ttft_ms": 1305,
+    "tokens_per_second": null,
+    "usage": {
+      "input_tokens": 333,
+      "output_tokens": 214,
+      "cache_read_input_tokens": null,
+      "cache_creation_input_tokens": null,
+      "server_tool_use": null
+    },
+    "request_count": 11,
+    "backoff_events": 0
+  },
+  "summary": "基本合格",
+  "run_error": null,
+  "self_reported_identity": null,
+  "detected_non_anthropic_brands": []
+}

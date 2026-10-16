@@ -1,0 +1,18 @@
+{
+ "tool": "model-xray",
+ "arm": "inflate",
+ "rep": 4,
+ "verdict": "pass",
+ "label": "clean",
+ "seconds": 58.6,
+ "requests": 50,
+ "prompt_tokens": 65058,
+ "completion_tokens": 980,
+ "cache_hit_tokens": 63744,
+ "est_cost_usd": 0.00842,
+ "signals": {
+  "identity_level": "pass",
+  "billing_level": "pass",
+  "quality_level": "pass"
+ }
+}

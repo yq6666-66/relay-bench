@@ -97,9 +97,20 @@ def evaluate() -> list[dict[str, object]]:
         ca, cn = tally(recs, check, confirm=True)
         status = "已确认" if cn > 0 and ca == cn and da == dn else (
             "无确认数据" if cn == 0 else "未确认")
+        status = OVERRIDES.get(cid, status) if status == "已确认" else status
         out.append({"id": cid, "claim": text, "discovery": f"{da}/{dn}",
                     "confirmation": f"{ca}/{cn}", "status": status})
     return out
+
+
+# Post-hoc labels from the v0.3 review (debates/v0.3.md round 3): protocol
+# deviations and non-discriminative / self-built candidates never read "已确认".
+OVERRIDES = {
+    "C2": "带偏离确认（ctx honest 只到 N=3，协议 N=4）",
+    "C4": "内部一致（自造检测器，非独立验证）",
+    "C5": "无区分度（所有臂都报，建议剔除总判定）",
+    "C6": "未确认（确认集 N=2，协议要求 4）",
+}
 
 
 def main() -> None:

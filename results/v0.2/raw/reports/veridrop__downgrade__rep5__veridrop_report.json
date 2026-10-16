@@ -1,0 +1,562 @@
+{
+  "protocol": "openai",
+  "tier": "behavioral",
+  "tier_title": "行为/协议级验证",
+  "tier_message": "本检测无法可靠区分高配模型真品与低配模型伪装。我们检测的是中转站接口是否符合 OpenAI Chat Completions 协议规范、能力是否完整、usage 字段是否符合官方响应形状。",
+  "base_url": "http://127.0.0.1:48321/v1",
+  "api_key_masked": "local-••••••my",
+  "target_model": "deepseek-v4-pro",
+  "mode": "standard",
+  "timestamp": "2026-10-16T11:57:10.245071Z",
+  "total_score": 79.0,
+  "verdict": "marginal",
+  "results": [
+    {
+      "name": "basic_request",
+      "display_name": "基础请求",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 15.0,
+      "details": {
+        "response_text": "pong",
+        "object": "chat.completion",
+        "model": "deepseek-v4-pro",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 13,
+          "completion_tokens": 2,
+          "total_tokens": 15,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 13
+        },
+        "reasoning_budget_exhausted": false
+      },
+      "duration_ms": 892,
+      "error": null
+    },
+    {
+      "name": "model_consistency",
+      "display_name": "模型一致性",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 15.0,
+      "details": {
+        "request_model": "deepseek-v4-pro",
+        "response_model": "deepseek-v4-pro",
+        "model_match": true,
+        "n_runs": 3,
+        "completion_tokens_seq": [
+          54,
+          54,
+          54
+        ],
+        "stability_cv": 0.0,
+        "stability_label": "stable"
+      },
+      "duration_ms": 4029,
+      "error": null
+    },
+    {
+      "name": "function_calling",
+      "display_name": "函数调用",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 15.0,
+      "details": {
+        "sub_checks": {
+          "has_tool_call": {
+            "value": true,
+            "pass": true
+          },
+          "id_prefix": {
+            "value": "call_00_dUnPv85R1qbnQhfugoir9852",
+            "pass": true
+          },
+          "type": {
+            "value": "function",
+            "pass": true
+          },
+          "name": {
+            "value": "get_current_weather",
+            "pass": true
+          },
+          "arguments_json": {
+            "value": {
+              "city": "Boston, MA",
+              "unit": "celsius"
+            },
+            "pass": true
+          }
+        },
+        "finish_reason": "tool_calls"
+      },
+      "duration_ms": 890,
+      "error": null
+    },
+    {
+      "name": "structured_output",
+      "display_name": "结构化输出",
+      "status": "error",
+      "score": 0.0,
+      "weight": 15.0,
+      "details": {},
+      "duration_ms": 1199,
+      "error": "HTTP 400: {\"error\":{\"message\":\"This response_format type is unavailable now (request_id: d66f9d0d-b385-4d2c-a9c4-2d23f52d8012)\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}}"
+    },
+    {
+      "name": "integrity",
+      "display_name": "流式一致性",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 15.0,
+      "details": {
+        "non_stream_text": "veridrop stream check",
+        "stream_text": "veridrop stream check",
+        "text_match": true,
+        "non_stream_finish_reason": "stop",
+        "stream_finish_reason": "stop",
+        "finish_match": true,
+        "non_stream_usage": {
+          "prompt_tokens": 13,
+          "completion_tokens": 5,
+          "total_tokens": 18,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 13
+        },
+        "stream_usage": {
+          "prompt_tokens": 13,
+          "completion_tokens": 5,
+          "total_tokens": 18,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 13
+        },
+        "usage_match": true,
+        "stream_chunk_count": 8
+      },
+      "duration_ms": 2891,
+      "error": null
+    },
+    {
+      "name": "token_billing",
+      "display_name": "Token 计费",
+      "status": "pass",
+      "score": 100.0,
+      "weight": 10.0,
+      "details": {
+        "sub_checks": {
+          "usage_present": {
+            "pass": true,
+            "short_usage": {
+              "prompt_tokens": 9,
+              "completion_tokens": 1,
+              "total_tokens": 10,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "prompt_cache_hit_tokens": 0,
+              "prompt_cache_miss_tokens": 9
+            },
+            "long_usage": {
+              "prompt_tokens": 93,
+              "completion_tokens": 1,
+              "total_tokens": 94,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "prompt_cache_hit_tokens": 0,
+              "prompt_cache_miss_tokens": 93
+            }
+          },
+          "usage_arithmetic": {
+            "pass": true,
+            "note": "total_tokens 应等于 prompt_tokens + completion_tokens"
+          },
+          "prompt_token_delta": {
+            "short_prompt_tokens": 9,
+            "long_prompt_tokens": 93,
+            "delta": 84,
+            "expected_range": [
+              45,
+              130
+            ],
+            "pass": true
+          },
+          "completion_tokens": {
+            "short_completion_tokens": 1,
+            "long_completion_tokens": 1,
+            "short_text": "ok",
+            "long_text": "ok",
+            "pass": true
+          },
+          "stream_usage": {
+            "non_stream_usage": {
+              "prompt_tokens": 9,
+              "completion_tokens": 1,
+              "total_tokens": 10,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "prompt_cache_hit_tokens": 0,
+              "prompt_cache_miss_tokens": 9
+            },
+            "stream_usage": {
+              "prompt_tokens": 9,
+              "completion_tokens": 1,
+              "total_tokens": 10,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "prompt_cache_hit_tokens": 0,
+              "prompt_cache_miss_tokens": 9
+            },
+            "stream_chunk_count": 4,
+            "stream_error": null,
+            "pass": true,
+            "note": ""
+          },
+          "normal_usage": {
+            "comparison_available": false,
+            "pass": true,
+            "score": 100.0,
+            "note": "仅做本次响应自洽检查"
+          }
+        },
+        "risk_level": "low",
+        "evaluation_zh": "Token 数基本可信: usage 加法自洽,加长文本带来的 token 增量合理,流式和非流式统计也能对上。"
+      },
+      "duration_ms": 3623,
+      "error": null
+    },
+    {
+      "name": "protocol",
+      "display_name": "协议规范性",
+      "status": "fail",
+      "score": 60.0,
+      "weight": 15.0,
+      "details": {
+        "observation_count": 8,
+        "critical_issue_count": 8,
+        "major_issue_count": 0,
+        "issues": [
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "fb3be0aa-ec78-4303-bf72-53b1ad0be62c"
+          },
+          {
+            "severity": "minor",
+            "code": "system_fingerprint_invalid",
+            "path": "$.system_fingerprint",
+            "message": "system_fingerprint, when present, should use the fp_ prefix",
+            "expected": "fp_* or null",
+            "actual": "aeb56401ca74e127821c4f9126dcb669"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "67310e30-f133-4927-a8dd-f623a12da6f0"
+          },
+          {
+            "severity": "minor",
+            "code": "system_fingerprint_invalid",
+            "path": "$.system_fingerprint",
+            "message": "system_fingerprint, when present, should use the fp_ prefix",
+            "expected": "fp_* or null",
+            "actual": "aeb56401ca74e127821c4f9126dcb669"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "1cf333e6-51d5-4e73-a75d-d06f5f866942"
+          },
+          {
+            "severity": "minor",
+            "code": "system_fingerprint_invalid",
+            "path": "$.system_fingerprint",
+            "message": "system_fingerprint, when present, should use the fp_ prefix",
+            "expected": "fp_* or null",
+            "actual": "aeb56401ca74e127821c4f9126dcb669"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "70b92f43-9719-4f4b-9ff3-c0aab15108ff"
+          },
+          {
+            "severity": "minor",
+            "code": "system_fingerprint_invalid",
+            "path": "$.system_fingerprint",
+            "message": "system_fingerprint, when present, should use the fp_ prefix",
+            "expected": "fp_* or null",
+            "actual": "aeb56401ca74e127821c4f9126dcb669"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "7991b3a0-2950-4d0a-b5e1-ddb1e68471e1"
+          },
+          {
+            "severity": "minor",
+            "code": "system_fingerprint_invalid",
+            "path": "$.system_fingerprint",
+            "message": "system_fingerprint, when present, should use the fp_ prefix",
+            "expected": "fp_* or null",
+            "actual": "aeb56401ca74e127821c4f9126dcb669"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "2e27c0e5-b953-477e-baa2-383ea042bf13"
+          },
+          {
+            "severity": "minor",
+            "code": "system_fingerprint_invalid",
+            "path": "$.system_fingerprint",
+            "message": "system_fingerprint, when present, should use the fp_ prefix",
+            "expected": "fp_* or null",
+            "actual": "aeb56401ca74e127821c4f9126dcb669"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "24769012-0460-4807-ae21-7aeeb65fd8a5"
+          },
+          {
+            "severity": "minor",
+            "code": "system_fingerprint_invalid",
+            "path": "$.system_fingerprint",
+            "message": "system_fingerprint, when present, should use the fp_ prefix",
+            "expected": "fp_* or null",
+            "actual": "aeb56401ca74e127821c4f9126dcb669"
+          },
+          {
+            "severity": "critical",
+            "code": "id_prefix_invalid",
+            "path": "$.id",
+            "message": "ID must use the official 'chatcmpl-' prefix",
+            "expected": "chatcmpl-*",
+            "actual": "046d755d-02f3-4f34-9237-799172af24e4"
+          },
+          {
+            "severity": "minor",
+            "code": "system_fingerprint_invalid",
+            "path": "$.system_fingerprint",
+            "message": "system_fingerprint, when present, should use the fp_ prefix",
+            "expected": "fp_* or null",
+            "actual": "aeb56401ca74e127821c4f9126dcb669"
+          }
+        ],
+        "fingerprints": [
+          {
+            "id_prefix": "fb3be0aa-",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": true,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_cache_hit_tokens",
+              "prompt_cache_miss_tokens",
+              "prompt_tokens",
+              "prompt_tokens_details",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "67310e30-",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "tool_calls"
+            ],
+            "system_fingerprint_present": true,
+            "tool_call_id_prefixes": [
+              "call_"
+            ],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_cache_hit_tokens",
+              "prompt_cache_miss_tokens",
+              "prompt_tokens",
+              "prompt_tokens_details",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "1cf333e6-",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": true,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_cache_hit_tokens",
+              "prompt_cache_miss_tokens",
+              "prompt_tokens",
+              "prompt_tokens_details",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "70b92f43-",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": true,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_cache_hit_tokens",
+              "prompt_cache_miss_tokens",
+              "prompt_tokens",
+              "prompt_tokens_details",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "7991b3a0-",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": true,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_cache_hit_tokens",
+              "prompt_cache_miss_tokens",
+              "prompt_tokens",
+              "prompt_tokens_details",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "2e27c0e5-",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": true,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_cache_hit_tokens",
+              "prompt_cache_miss_tokens",
+              "prompt_tokens",
+              "prompt_tokens_details",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "24769012-",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": true,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_cache_hit_tokens",
+              "prompt_cache_miss_tokens",
+              "prompt_tokens",
+              "prompt_tokens_details",
+              "total_tokens"
+            ]
+          },
+          {
+            "id_prefix": "046d755d-",
+            "object": "chat.completion",
+            "model": "deepseek-v4-pro",
+            "finish_reasons": [
+              "stop"
+            ],
+            "system_fingerprint_present": true,
+            "tool_call_id_prefixes": [],
+            "usage_keys": [
+              "completion_tokens",
+              "prompt_cache_hit_tokens",
+              "prompt_cache_miss_tokens",
+              "prompt_tokens",
+              "prompt_tokens_details",
+              "total_tokens"
+            ]
+          }
+        ]
+      },
+      "duration_ms": null,
+      "error": null
+    },
+    {
+      "name": "long_context",
+      "display_name": "长上下文真实性",
+      "status": "skip",
+      "score": 0.0,
+      "weight": 15.0,
+      "details": {
+        "skip_reason": "mode-excluded"
+      },
+      "duration_ms": null,
+      "error": null
+    }
+  ],
+  "performance": {
+    "total_latency_ms": 4044,
+    "ttft_ms": 724,
+    "tokens_per_second": null,
+    "usage": {
+      "input_tokens": 508,
+      "output_tokens": 230,
+      "cache_read_input_tokens": null,
+      "cache_creation_input_tokens": null,
+      "server_tool_use": null
+    },
+    "request_count": 11,
+    "backoff_events": 0
+  },
+  "summary": "基本合格",
+  "run_error": null,
+  "self_reported_identity": null,
+  "detected_non_anthropic_brands": []
+}
