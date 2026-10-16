@@ -279,5 +279,109 @@
    "cost_usd": 0.0007,
    "mean_seconds": 6.4
   }
+ },
+ "veridrop": {
+  "cross_family": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "marginal",
+    "marginal",
+    "marginal"
+   ],
+   "mean_requests": 11.0,
+   "cost_usd": 0.0076,
+   "mean_seconds": 6.9
+  },
+  "downgrade": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "marginal",
+    "marginal",
+    "marginal"
+   ],
+   "mean_requests": 11.0,
+   "cost_usd": 0.0012,
+   "mean_seconds": 4.3
+  },
+  "honest": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "marginal",
+    "marginal",
+    "marginal"
+   ],
+   "mean_requests": 11.0,
+   "cost_usd": 0.0037,
+   "mean_seconds": 5.9
+  },
+  "inflate": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "marginal",
+    "marginal",
+    "marginal"
+   ],
+   "mean_requests": 11.0,
+   "cost_usd": 0.0037,
+   "mean_seconds": 5.7
+  },
+  "inject": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "marginal",
+    "marginal",
+    "marginal"
+   ],
+   "mean_requests": 11.0,
+   "cost_usd": 0.0051,
+   "mean_seconds": 5.3
+  },
+  "truncate": {
+   "flagged": 3,
+   "valid": 3,
+   "errors": 0,
+   "ci95": [
+    0.44,
+    1.0
+   ],
+   "verdicts": [
+    "marginal",
+    "marginal",
+    "marginal"
+   ],
+   "mean_requests": 11.0,
+   "cost_usd": 0.0037,
+   "mean_seconds": 6.1
+  }
  }
 }

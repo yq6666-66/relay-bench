@@ -1,0 +1,20 @@
+{
+ "tool": "veridrop",
+ "arm": "inject",
+ "rep": 2,
+ "verdict": "marginal",
+ "label": "flagged",
+ "seconds": 5.7,
+ "requests": 11,
+ "prompt_tokens": 858,
+ "completion_tokens": 198,
+ "cache_hit_tokens": 256,
+ "est_cost_usd": 0.00159,
+ "signals": {
+  "total_score": 77.5,
+  "model_consistency": "pass",
+  "token_billing": "fail",
+  "integrity": "pass",
+  "protocol": "fail"
+ }
+}

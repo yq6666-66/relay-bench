@@ -35,3 +35,13 @@
   - model-xray：truncate 3/3 fail，靠的是 billing 维度检出"usage 斜率异常（zh slope=0）"：截断后 prompt_tokens 不再随输入长度增长。这是真检出，不是质量题误报（billing 在 honest 上 5/5 满分）。
   - refcheck：truncate 0/3，符合预期（探针只有几个字符，截断不影响）。
 - P7 花费约 $0.476。
+
+## P8：veridrop 适配器（2026-10-16）
+
+- veridrop（AGPL-3.0，作为外部进程在它自己的 venv 里运行），`detect --protocol openai --mode standard`，不开长上下文。它的终端渲染遇到 dict 形式的 protocol issue 会崩溃，崩溃发生在写 JSON 之前；适配器用一个 shim 只关掉终端渲染，没有改动它的代码。
+- 结果：六个配置 18/18 次都是 `marginal`，判定完全没有区分度。
+  - 原因：它按 OpenAI 官方响应形状打分，DeepSeek 的响应 ID 不是 `chatcmpl-` 前缀，所以 protocol 一项 critical fail。诚实配置因此只有 79 分。
+  - cross_family（真上游是 GPT）反而得分最高（91.75–94.75），因为响应形状更像 OpenAI 官方。
+  - token_billing 对 inflate（usage ×1.3）0/3 检出；对 inject 有 1/3 次 fail，可能是偶然。
+- 结论：veridrop 的 OpenAI 协议检测针对的是"OpenAI 官方模型的中转"，不适合 OpenAI 兼容但非 OpenAI 的上游（比如 DeepSeek）。这是适用范围问题，不应理解为它的缺陷。
+- 花费约 $0.027。

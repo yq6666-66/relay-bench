@@ -12,6 +12,12 @@
 | fpverify | inflate | 0/3 | 0.00–0.56 | PASS PASS PASS | 0.0665 |
 | model-xray | inflate | 3/3 | 0.44–1.00 | warn warn warn | 0.0191 |
 | model-xray | truncate | 3/3 | 0.44–1.00 | fail fail fail | 0.0117 |
+| veridrop | honest | 3/3 | 0.44–1.00 | marginal marginal marginal | 0.0037 |
+| veridrop | cross_family | 3/3 | 0.44–1.00 | marginal marginal marginal | 0.0076 |
+| veridrop | downgrade | 3/3 | 0.44–1.00 | marginal marginal marginal | 0.0012 |
+| veridrop | inject | 3/3 | 0.44–1.00 | marginal marginal marginal | 0.0051 |
+| veridrop | inflate | 3/3 | 0.44–1.00 | marginal marginal marginal | 0.0037 |
+| veridrop | truncate | 3/3 | 0.44–1.00 | marginal marginal marginal | 0.0037 |
 
 ## relay-bench 自带参考检查（基线，单列，不参与排名）
 
@@ -24,4 +30,4 @@
 | refcheck | inflate | 3/3 | 0.44–1.00 | FAIL FAIL FAIL | 0.0007 |
 | refcheck | truncate | 0/3 | 0.00–0.56 | PASS PASS PASS | 0.0007 |
 
-v0.2 估算花费合计：$0.629
+v0.2 估算花费合计：$0.654

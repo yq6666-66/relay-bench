@@ -173,8 +173,41 @@ def run_refcheck(base: str, out: Path) -> tuple[str, str]:
     return verdict, label
 
 
+# veridrop is AGPL-3.0: run as an external process in its own venv, no code copied.
+# Its terminal renderer crashes on dict-shaped protocol issues (v as of 2026-09-20) before the
+# JSON report is written, so the shim below disables only terminal rendering.
+VD_SHIM = ("import sys, relay_detector.report as r; r.Report.render_terminal = lambda *a, **k: None; "
+           "from relay_detector.cli import app; sys.argv[0] = 'veridrop'; app()")
+
+
+def parse_veridrop(report: dict[str, Any]) -> tuple[str, str, dict[str, object]]:
+    verdict = str(report.get("verdict") or "ERROR")
+    label = {"failed": "flagged", "marginal": "flagged", "passed": "clean"}.get(verdict, "error")
+    det = {str(r.get("name")): str(r.get("status")) for r in report.get("results") or []
+           if isinstance(r, dict)}
+    signals: dict[str, object] = {"total_score": report.get("total_score"), **{
+        k: det.get(k) for k in ("model_consistency", "token_billing", "integrity", "protocol")}}
+    return verdict, label, signals
+
+
+def run_veridrop(base: str, out: Path) -> tuple[str, str]:
+    report = out / "veridrop_report.json"
+    cmd = [str(TP / "veridrop/.venv/bin/python"), "-c", VD_SHIM, "detect", "--base-url", base,
+           "--api-key", "local-dummy", "--model", CLAIMED, "--protocol", "openai",
+           "--mode", "standard", "-o", str(report)]
+    p = subprocess.run(cmd, check=False, cwd=TP / "veridrop", capture_output=True, text=True,
+                       timeout=1800)
+    (out / "stdout.txt").write_text(redact(p.stdout + p.stderr), encoding="utf-8")
+    if not report.exists():
+        return "ERROR", "error"
+    verdict, label, signals = parse_veridrop(json.loads(report.read_text(encoding="utf-8")))
+    (out / "signals.json").write_text(json.dumps(signals), encoding="utf-8")
+    return verdict, label
+
+
 TOOLS = {"fpverify": run_fpverify, "model-xray": run_model_xray,
          "api-relay-audit": run_api_relay_audit, "refcheck": run_refcheck,
+         "veridrop": run_veridrop,
          "api-relay-audit-ctx": lambda b, o: run_api_relay_audit(b, o, context=True)}
 
 
