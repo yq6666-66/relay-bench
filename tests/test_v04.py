@@ -83,7 +83,6 @@ def test_offline_plumbing_smoke(tmp_path, monkeypatch):
     importlib.reload(run)
 
 
-@pytest.mark.experimental
 def test_stream_split_swaps_only_streaming(tmp_path):
     from proxy.app import build_upstream_body
 

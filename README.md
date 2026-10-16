@@ -38,19 +38,20 @@ relay-bench report                        # 重新生成汇总
 | inject | deepseek-v4-pro + 隐藏 system prompt | 篡改 |
 | inflate | deepseek-v4-pro，返回的 usage ×1.3 | 篡改 |
 | truncate | deepseek-v4-pro，最后一条 user 消息只留末尾 1000 字符 | 篡改 |
-| stream_split（实验） | 非流式走 deepseek-v4-pro，流式走 deepseek-flash | 仅流式替换 |
+| stream_split | 非流式走 deepseek-v4-pro，流式走 deepseek-flash | 仅流式替换 |
 | replay（实验） | 相同请求直接返回缓存的回答和 usage | 重放 |
 
-所有配置响应里的 `model` 都改写成 `deepseek-v4-pro`；实际上游写入本地 ledger（`runs/`，已忽略）。所有配置都统一关闭思考模式（见 `docs/methodology.md`）。实验配置还没有正式评测结果。
+所有配置响应里的 `model` 都改写成 `deepseek-v4-pro`；实际上游写入本地 ledger（`runs/`，已忽略）。所有配置都统一关闭思考模式（见 `docs/methodology.md`）。replay 配置还在实验阶段，没有正式评测结果。
 
 跨家族配置用到的第三方网关只是取得非 DeepSeek 模型的一个来源，不是评测对象；本项目不评价、不排名任何真实中转站。
 
-## 当前结论（详见 `results/v0.2/report.md`、`results/v0.3/confirmation.md`）
+## 当前结论（详见 `results/v0.2/report.md`、`results/v0.3/confirmation.md`、`results/v0.5/report.md`）
 统计口径只做描述：每格 n/N 加 Wilson 95% 区间，不做显著性声明。
 - 换模型：fpverify 能抓跨家族和同族降级（各 5/5），model-xray 只抓跨家族。
 - 隐藏注入：没有工具的总判定能抓；api-relay-audit 的 token 注入子信号能抓，已在预注册确认集里复现。
 - token 虚报（usage ×1.3）：第三方工具都没有抓到；只有自带的参考检查 refcheck 能抓（自造检测器，只作参考，不参与排名）。
 - 上下文截断：model-xray billing 斜率检查和 api-relay-audit 上下文步骤都能抓。
+- 仅流式替换：现有工具里没有一个能把它和 honest 区分开（model-xray 的报警跟 honest 一样；veridrop 流式样本不足，无法判定），见 `results/v0.5/report.md`。
 - 误报：model-xray 在诚实配置上 5/5 warn；api-relay-audit 和 veridrop 的总判定在所有配置上都报异常，没有区分度。
 
 版本变更见 `CHANGELOG.md`。许可证 MIT。

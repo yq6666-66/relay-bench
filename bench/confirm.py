@@ -97,7 +97,10 @@ def evaluate() -> list[dict[str, object]]:
         ca, cn = tally(recs, check, confirm=True)
         status = "已确认" if cn > 0 and ca == cn and da == dn else (
             "无确认数据" if cn == 0 else "未确认")
-        status = OVERRIDES.get(cid, status) if status == "已确认" else status
+        if cid == "C6" and cn >= 4:
+            status = status if status != "已确认" else "已确认（rep5 在 v0.3 tag 之后补齐）"
+        elif status == "已确认":
+            status = OVERRIDES.get(cid, status)
         out.append({"id": cid, "claim": text, "discovery": f"{da}/{dn}",
                     "confirmation": f"{ca}/{cn}", "status": status})
     return out

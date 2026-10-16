@@ -1,0 +1,13 @@
+{
+ "tool": "fpverify",
+ "arm": "stream_split",
+ "rep": 1,
+ "verdict": "PASS",
+ "label": "clean",
+ "seconds": 520.9,
+ "requests": 400,
+ "prompt_tokens": 15011,
+ "completion_tokens": 599,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.02219
+}

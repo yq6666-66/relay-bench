@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5 — 2026-10-16
+- First evaluation of the `stream_split` arm (non-streaming → claimed model, streaming → same-family cheaper model): `results/v0.5/report.md`, per-run table from `python -m bench.report_v05`, which also counts the streaming requests each run actually sent (from the ledger).
+- Outcome: model-xray (N=5, 85 streamed requests) showed no discrimination: same warnings as honest. veridrop (N=5) is inconclusive because it sends only 2 streamed requests per run. fpverify and refcheck smoke runs sent no streaming requests. api-relay-audit's stream check targets the Anthropic endpoint, which this relay doesn't implement (environment-blocked).
+- v0.3 confirmation completed: fpverify inflate/truncate rep5 finished after the v0.3 tag; C6 is now confirmed (4/4), and the deviation table is updated.
+
 ## v0.4 — 2026-10-16
 - Installable CLI (`pip install git+https://github.com/yq6666-66/relay-bench`): `relay-bench proxy`, `relay-bench run`, `relay-bench report` (the latter reuses the existing report code).
 - Declarative YAML adapter for simple JSON-emitting detectors (`bench/plugin.py`, `docs/plugins.md`, `examples/detectors/`): `cmd` must be an argument list and never runs through a shell; the subprocess gets only PATH/HOME/LANG plus explicitly listed env names; one bool/str verdict field mapped to flagged/clean, anything else = error.
