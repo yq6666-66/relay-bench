@@ -96,6 +96,12 @@ def run_fpverify(base: str, out: Path) -> tuple[str, str]:
     return verdict, label
 
 
+def parse_mx_signals(rep: dict[str, Any]) -> dict[str, object]:
+    """Per-dimension levels from a model-xray report (identity/billing/quality...)."""
+    return {f"{d.get('id')}_level": d.get("level") for d in rep.get("scores") or []
+            if isinstance(d, dict) and d.get("score") is not None}
+
+
 def run_model_xray(base: str, out: Path) -> tuple[str, str]:
     cmd = [NODE, "dist/src/cli.js", "test", "--base-url", base, "--key", "local-dummy",
            "--model", CLAIMED, "--expect", "none", "--yes", "--out", str(out)]
@@ -104,7 +110,9 @@ def run_model_xray(base: str, out: Path) -> tuple[str, str]:
     reports = sorted(out.glob("report-*.json"))
     if not reports:
         return "ERROR", "error"
-    verdict = json.loads(reports[-1].read_text(encoding="utf-8")).get("overall", "ERROR")
+    rep = json.loads(reports[-1].read_text(encoding="utf-8"))
+    verdict = rep.get("overall", "ERROR")
+    (out / "signals.json").write_text(json.dumps(parse_mx_signals(rep)), encoding="utf-8")
     label = {"fail": "flagged", "warn": "flagged", "pass": "clean"}.get(verdict, "error")
     return verdict, label
 
