@@ -96,7 +96,6 @@ def test_stream_split_swaps_only_streaming(tmp_path):
     assert led[-1]["upstream_model"] == "deepseek-flash"
 
 
-@pytest.mark.experimental
 def test_replay_serves_identical_cached_answer(tmp_path):
     app = create_app(CFG, "replay", tmp_path / "r.jsonl")
     body = {"model": "deepseek-v4-pro", "temperature": 1.0,

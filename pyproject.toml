@@ -28,4 +28,3 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
-markers = ["experimental: arms not yet benchmarked (replay)"]

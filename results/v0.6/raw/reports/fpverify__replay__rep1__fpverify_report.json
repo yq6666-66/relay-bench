@@ -1,0 +1,140 @@
+{
+  "reference_model": "deepseek-v4-pro",
+  "generated_at": "2026-10-16T13:54:52.542707+00:00",
+  "verdict": "FAIL",
+  "n_queries": 219,
+  "wealth": 163.769844498685,
+  "peak_wealth": 163.769844498685,
+  "threshold": 100.0,
+  "alpha": 0.01,
+  "delta": 0.0787896052667912,
+  "aggregate_jsd": null,
+  "per_cell_jsd": {},
+  "cache_flags": [],
+  "model_fields_seen": {
+    "deepseek-v4-pro": 219
+  },
+  "errors": 0,
+  "detail": "序贯检验拒绝了'端点是真身'的零假设：行为指纹显著偏离，判定注水/偷换。",
+  "observed_counts": {
+    "rand_color::en": {
+      "blue": 7
+    },
+    "rand_num_100::ar": {
+      "42": 7
+    },
+    "rand_city::zh": {
+      "上海": 5,
+      "巴黎": 2
+    },
+    "rand_color::zh": {
+      "blue": 4,
+      "群青": 2
+    },
+    "rand_num_10::zh": {
+      "7": 6
+    },
+    "rand_num_100::en": {
+      "42": 5,
+      "57": 1
+    },
+    "fav_color::ru": {
+      "blue": 6
+    },
+    "fav_num::ar": {
+      "7": 6
+    },
+    "coin_flip::en": {
+      "heads": 5,
+      "tails": 1
+    },
+    "rand_city::ru": {
+      "лондон": 6
+    },
+    "rand_num_10::ar": {
+      "7": 6
+    },
+    "rand_num_100::ru": {
+      "74": 2,
+      "42": 4
+    },
+    "rand_city::en": {
+      "tokyo": 3,
+      "london": 3
+    },
+    "rand_num_10::en": {
+      "7": 1,
+      "6": 5
+    },
+    "rand_letter::zh": {
+      "a": 4,
+      "z": 2
+    },
+    "fav_color::ar": {
+      "الأزرق": 6
+    },
+    "fav_num::zh": {
+      "7": 6
+    },
+    "coin_flip::ar": {
+      "heads": 6
+    },
+    "coin_flip::zh": {
+      "heads": 6
+    },
+    "fav_num::en": {
+      "7": 6
+    },
+    "rand_color::ru": {
+      "blue": 6
+    },
+    "fav_color::zh": {
+      "blue": 6
+    },
+    "coin_flip::ru": {
+      "heads": 6
+    },
+    "fav_num::ru": {
+      "7": 6
+    },
+    "rand_animal::en": {
+      "dog": 3,
+      "sloth": 3
+    },
+    "rand_letter::en": {
+      "s": 3,
+      "m": 2,
+      "z": 1
+    },
+    "rand_letter::ar": {
+      "a": 6
+    },
+    "fav_color::en": {
+      "blue": 6
+    },
+    "rand_color::ar": {
+      "blue": 6
+    },
+    "rand_animal::ru": {
+      "кошка": 6
+    },
+    "rand_num_100::zh": {
+      "42": 6
+    },
+    "rand_animal::zh": {
+      "猫": 6
+    },
+    "rand_animal::ar": {
+      "قط": 6
+    },
+    "rand_letter::ru": {
+      "z": 6
+    },
+    "rand_city::ar": {
+      "طوكيو": 6
+    },
+    "rand_num_10::ru": {
+      "7": 6
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "reference_model": "deepseek-v4-pro",
+  "generated_at": "2026-10-16T13:56:06.360260+00:00",
+  "verdict": "FAIL",
+  "n_queries": 218,
+  "wealth": 104.97546420609713,
+  "peak_wealth": 104.97546420609713,
+  "threshold": 100.0,
+  "alpha": 0.01,
+  "delta": 0.0787896052667912,
+  "aggregate_jsd": null,
+  "per_cell_jsd": {},
+  "cache_flags": [],
+  "model_fields_seen": {
+    "deepseek-v4-pro": 218
+  },
+  "errors": 0,
+  "detail": "序贯检验拒绝了'端点是真身'的零假设：行为指纹显著偏离，判定注水/偷换。",
+  "observed_counts": {
+    "rand_animal::ar": {
+      "قط": 7
+    },
+    "rand_letter::ru": {
+      "z": 7
+    },
+    "rand_letter::en": {
+      "a": 2,
+      "f": 2,
+      "k": 2
+    },
+    "fav_color::en": {
+      "blue": 6
+    },
+    "fav_color::zh": {
+      "blue": 6
+    },
+    "rand_city::zh": {
+      "东京": 3,
+      "巴黎": 3
+    },
+    "rand_animal::ru": {
+      "слон": 6
+    },
+    "fav_num::ar": {
+      "7": 6
+    },
+    "rand_animal::zh": {
+      "猫": 6
+    },
+    "rand_animal::en": {
+      "elephant": 2,
+      "dog": 4
+    },
+    "coin_flip::ru": {
+      "heads": 6
+    },
+    "rand_num_10::en": {
+      "5": 1,
+      "6": 3,
+      "7": 2
+    },
+    "rand_color::en": {
+      "aquamarine": 1,
+      "blue": 5
+    },
+    "rand_color::ar": {
+      "blue": 6
+    },
+    "fav_num::zh": {
+      "7": 6
+    },
+    "coin_flip::zh": {
+      "tails": 2,
+      "无法": 4
+    },
+    "rand_num_100::ar": {
+      "42": 6
+    },
+    "fav_color::ar": {
+      "الأزرق": 6
+    },
+    "rand_num_100::zh": {
+      "42": 6
+    },
+    "rand_num_10::zh": {
+      "7": 4,
+      "5": 2
+    },
+    "fav_color::ru": {
+      "blue": 6
+    },
+    "rand_color::ru": {
+      "blue": 4,
+      "бирюзовый": 2
+    },
+    "fav_num::ru": {
+      "7": 6
+    },
+    "rand_num_10::ar": {
+      "7": 6
+    },
+    "rand_city::ru": {
+      "улан-удэ": 6
+    },
+    "coin_flip::ar": {
+      "heads": 6
+    },
+    "rand_num_10::ru": {
+      "7": 6
+    },
+    "rand_city::ar": {
+      "لندن": 6
+    },
+    "rand_num_100::en": {
+      "42": 6
+    },
+    "fav_num::en": {
+      "7": 1,
+      "42": 5
+    },
+    "rand_city::en": {
+      "tokyo": 2,
+      "new": 4
+    },
+    "rand_letter::ar": {
+      "w": 6
+    },
+    "coin_flip::en": {
+      "heads": 6
+    },
+    "rand_letter::zh": {
+      "a": 1,
+      "z": 5
+    },
+    "rand_color::zh": {
+      "blue": 6
+    },
+    "rand_num_100::ru": {
+      "42": 5,
+      "57": 1
+    }
+  }
+}

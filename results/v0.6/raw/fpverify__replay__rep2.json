@@ -1,0 +1,13 @@
+{
+ "tool": "fpverify",
+ "arm": "replay",
+ "rep": 2,
+ "verdict": "FAIL",
+ "label": "flagged",
+ "seconds": 73.7,
+ "requests": 218,
+ "prompt_tokens": 2357,
+ "completion_tokens": 89,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.00346
+}

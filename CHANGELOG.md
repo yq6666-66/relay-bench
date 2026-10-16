@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.6 — 2026-10-16
+- First evaluation of the `replay` arm (identical non-streaming requests get the first answer back, usage copied). The protocol was pre-registered before any run (`results/v0.6/PROTOCOL.md`); report in `results/v0.6/report.md`, per-run table with cache-hit counts from `python -m bench.report_v06`.
+- Outcome (raw counts, N=2–3, exploratory): fpverify FAILed 2/2 because repeated sampling collapsed, while its own cache flag stayed empty (its stated reason, substitution, is likely wrong). The api-relay-audit latency variant raised latency_flag 3/3 on replay vs 0/3 on honest (local machine only, exploratory). refcheck missed it (usage copied); veridrop showed no discrimination; model-xray and default api-relay-audit never triggered a replay.
+- `api-relay-audit-lat` is now a documented tool variant; the `experimental` pytest marker is retired.
+
 ## v0.5 — 2026-10-16
 - First evaluation of the `stream_split` arm (non-streaming → claimed model, streaming → same-family cheaper model): `results/v0.5/report.md`, per-run table from `python -m bench.report_v05`, which also counts the streaming requests each run actually sent (from the ledger).
 - Outcome: model-xray (N=5, 85 streamed requests) showed no discrimination: same warnings as honest. veridrop (N=5) is inconclusive because it sends only 2 streamed requests per run. fpverify and refcheck smoke runs sent no streaming requests. api-relay-audit's stream check targets the Anthropic endpoint, which this relay doesn't implement (environment-blocked).
