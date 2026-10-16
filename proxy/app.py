@@ -62,11 +62,26 @@ def rewrite_model(obj: Any, claimed: str) -> Any:
     return obj
 
 
+def inflate_usage(obj: Any, factors: dict[str, float] | None) -> Any:
+    """Token-inflation arm: scale reported usage (billing fraud); upstream truth stays in ledger."""
+    if not factors or not isinstance(obj, dict) or not isinstance(obj.get("usage"), dict):
+        return obj
+    u = dict(obj["usage"])
+    for field, key in (("prompt_tokens", "prompt"), ("completion_tokens", "completion")):
+        if isinstance(u.get(field), int):
+            u[field] = round(u[field] * float(factors.get(key, 1.0)))
+    if isinstance(u.get("prompt_tokens"), int) and isinstance(u.get("completion_tokens"), int):
+        u["total_tokens"] = u["prompt_tokens"] + u["completion_tokens"]
+    obj["usage"] = u
+    return obj
+
+
 def create_app(cfg: dict[str, Any], arm_name: str, ledger_path: str | Path,
                transport: httpx.AsyncBaseTransport | None = None) -> Starlette:
     arm = cfg["arms"][arm_name]
     up = cfg["upstreams"][arm["upstream"]]
     claimed = cfg["claimed_model"]
+    inflate = arm.get("inflate")
     key = os.environ.get(up["key_env"], "")
     client = httpx.AsyncClient(base_url=up["base_url"].rstrip("/"), timeout=180,
                                transport=transport,
@@ -103,7 +118,8 @@ def create_app(cfg: dict[str, Any], arm_name: str, ledger_path: str | Path,
                 log({"status": r.status_code, "usage": None, "stream": False})
                 return Response(r.content, status_code=r.status_code)
             log({"status": r.status_code, "usage": data.get("usage"), "stream": False})
-            return JSONResponse(rewrite_model(data, claimed), status_code=r.status_code)
+            return JSONResponse(inflate_usage(rewrite_model(data, claimed), inflate),
+                                status_code=r.status_code)
 
         req = client.build_request("POST", "/chat/completions", json=ub)
         r = await client.send(req, stream=True)
@@ -129,8 +145,9 @@ def create_app(cfg: dict[str, Any], arm_name: str, ledger_path: str | Path,
                         try:
                             obj = json.loads(line[5:])
                             usage = obj.get("usage") or usage
-                            line = "data: " + json.dumps(rewrite_model(obj, claimed),
-                                                         ensure_ascii=False)
+                            line = "data: " + json.dumps(
+                                inflate_usage(rewrite_model(obj, claimed), inflate),
+                                ensure_ascii=False)
                         except ValueError:
                             pass
                     yield (line + "\n").encode()

@@ -92,3 +92,19 @@ def test_retries_429(tmp_path, monkeypatch):
     with TestClient(app) as c:
         assert c.post("/v1/chat/completions", json=body()).status_code == 200
     assert route.call_count == 2
+
+
+def test_inflate_usage_scales_and_keeps_total_consistent():
+    from proxy.app import inflate_usage
+
+    o = inflate_usage({"usage": {"prompt_tokens": 100, "completion_tokens": 10,
+                                 "total_tokens": 110}}, {"prompt": 1.3, "completion": 1.3})
+    assert o["usage"] == {"prompt_tokens": 130, "completion_tokens": 13, "total_tokens": 143}
+    assert inflate_usage({"usage": None}, {"prompt": 2}) == {"usage": None}
+    assert inflate_usage({"usage": {"prompt_tokens": 5}}, None)["usage"]["prompt_tokens"] == 5
+
+
+def test_inflate_arm_config():
+    assert CFG["arms"]["inflate"]["inflate"]["prompt"] > 1
+    ub = build_upstream_body(body(), CFG, "inflate")
+    assert ub["model"] == "deepseek-v4-pro" and ub["messages"][0]["role"] == "user"

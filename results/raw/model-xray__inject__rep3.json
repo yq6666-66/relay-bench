@@ -1,0 +1,13 @@
+{
+ "tool": "model-xray",
+ "arm": "inject",
+ "rep": 3,
+ "verdict": "warn",
+ "label": "flagged",
+ "seconds": 49.8,
+ "requests": 49,
+ "prompt_tokens": 66676,
+ "completion_tokens": 577,
+ "cache_hit_tokens": 64000,
+ "est_cost_usd": 0.00863
+}

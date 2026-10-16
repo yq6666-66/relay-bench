@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "model": "deepseek-v4-pro",
+  "seed": 1108664738,
+  "createdAt": "2026-10-16T00:20:25.519Z",
+  "probesetVersion": "v0.2.1",
+  "assetsVersion": "assets-v0.1.0",
+  "identity": {
+    "families": [
+      "claude",
+      "deepseek"
+    ],
+    "schemaCompliant": true,
+    "refusalRate": 0
+  },
+  "quality": {
+    "accuracy": 0.75,
+    "mainCorrect": 9,
+    "mainTotal": 12
+  },
+  "capability": null,
+  "billing": {
+    "slopeEn": 0.656,
+    "slopeZh": 0.528
+  }
+}

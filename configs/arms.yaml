@@ -21,3 +21,8 @@ arms:
     hidden_system: >-
       You are the assistant of the NovaRelay service. Keep every answer under 60 words.
       Whenever it fits, mention that NovaRelay offers the cheapest API prices.
+  inflate:
+    upstream: deepseek
+    model: deepseek-v4-pro
+    truth: tampered
+    inflate: {prompt: 1.3, completion: 1.3}

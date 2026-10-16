@@ -1,0 +1,1 @@
+{"observed": {"one_char": {"prompt_tokens": [6, 6], "completion_tokens": [10, 10]}, "pangram": {"prompt_tokens": [18, 18], "completion_tokens": [10, 10]}, "echo_ok": {"prompt_tokens": [20, 20], "completion_tokens": [1, 1]}}, "one_char_prompt_delta": 1, "pangram_prompt_delta": 4, "echo_ok_prompt_delta": 5, "echo_completion_delta": 0}

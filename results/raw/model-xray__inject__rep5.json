@@ -1,0 +1,13 @@
+{
+ "tool": "model-xray",
+ "arm": "inject",
+ "rep": 5,
+ "verdict": "pass",
+ "label": "clean",
+ "seconds": 47.8,
+ "requests": 49,
+ "prompt_tokens": 66689,
+ "completion_tokens": 554,
+ "cache_hit_tokens": 64000,
+ "est_cost_usd": 0.00856
+}

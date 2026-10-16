@@ -1,135 +1,158 @@
 {
  "fpverify": {
   "cross_family": {
-   "flagged": 2,
-   "valid": 2,
+   "flagged": 5,
+   "valid": 5,
    "errors": 0,
    "ci95": [
-    0.34,
+    0.57,
     1.0
    ],
    "verdicts": [
     "FAIL",
+    "FAIL",
+    "FAIL",
+    "FAIL",
     "FAIL"
    ],
-   "mean_requests": 53.5,
-   "cost_usd": 0.0108,
-   "mean_seconds": 353.4
+   "mean_requests": 52.2,
+   "cost_usd": 0.0269,
+   "mean_seconds": 3068.8
   },
   "downgrade": {
-   "flagged": 2,
-   "valid": 2,
+   "flagged": 5,
+   "valid": 5,
    "errors": 0,
    "ci95": [
-    0.34,
+    0.57,
     1.0
    ],
    "verdicts": [
     "FAIL",
+    "FAIL",
+    "FAIL",
+    "FAIL",
     "FAIL"
    ],
-   "mean_requests": 185.5,
-   "cost_usd": 0.005,
-   "mean_seconds": 149.9
+   "mean_requests": 169.6,
+   "cost_usd": 0.0113,
+   "mean_seconds": 855.7
   },
   "honest": {
    "flagged": 0,
-   "valid": 3,
+   "valid": 5,
    "errors": 0,
    "ci95": [
     0.0,
-    0.56
+    0.43
    ],
    "verdicts": [
+    "PASS",
+    "PASS",
     "PASS",
     "PASS",
     "PASS"
    ],
    "mean_requests": 400.0,
-   "cost_usd": 0.0667,
-   "mean_seconds": 391.5
+   "cost_usd": 0.111,
+   "mean_seconds": 3388.0
   },
   "inject": {
    "flagged": 0,
-   "valid": 2,
+   "valid": 5,
    "errors": 0,
    "ci95": [
     0.0,
-    0.66
+    0.43
    ],
    "verdicts": [
+    "PASS",
+    "PASS",
+    "PASS",
     "PASS",
     "PASS"
    ],
    "mean_requests": 400.0,
-   "cost_usd": 0.0813,
-   "mean_seconds": 754.9
+   "cost_usd": 0.2031,
+   "mean_seconds": 886.7
   }
  },
  "model-xray": {
   "cross_family": {
-   "flagged": 2,
-   "valid": 2,
+   "flagged": 5,
+   "valid": 5,
    "errors": 0,
    "ci95": [
-    0.34,
+    0.57,
     1.0
    ],
    "verdicts": [
     "fail",
+    "fail",
+    "fail",
+    "fail",
     "fail"
    ],
-   "mean_requests": 48.0,
-   "cost_usd": 0.0672,
-   "mean_seconds": 944.6
+   "mean_requests": 45.2,
+   "cost_usd": 0.221,
+   "mean_seconds": 2231.7
   },
   "downgrade": {
    "flagged": 0,
-   "valid": 2,
+   "valid": 5,
    "errors": 0,
    "ci95": [
     0.0,
-    0.66
+    0.43
    ],
    "verdicts": [
+    "pass",
+    "pass",
+    "pass",
     "pass",
     "pass"
    ],
    "mean_requests": 49.0,
-   "cost_usd": 0.0115,
-   "mean_seconds": 612.0
+   "cost_usd": 0.0165,
+   "mean_seconds": 268.3
   },
   "honest": {
-   "flagged": 2,
-   "valid": 2,
+   "flagged": 5,
+   "valid": 5,
    "errors": 0,
    "ci95": [
-    0.34,
+    0.57,
     1.0
    ],
    "verdicts": [
     "warn",
+    "warn",
+    "warn",
+    "warn",
     "warn"
    ],
-   "mean_requests": 49.5,
-   "cost_usd": 0.0142,
-   "mean_seconds": 46.4
+   "mean_requests": 49.2,
+   "cost_usd": 0.0334,
+   "mean_seconds": 48.3
   },
   "inject": {
-   "flagged": 0,
-   "valid": 2,
+   "flagged": 2,
+   "valid": 5,
    "errors": 0,
    "ci95": [
-    0.0,
-    0.66
+    0.12,
+    0.77
    ],
    "verdicts": [
     "pass",
+    "pass",
+    "warn",
+    "warn",
     "pass"
    ],
    "mean_requests": 49.0,
-   "cost_usd": 0.0532,
-   "mean_seconds": 44.3
+   "cost_usd": 0.079,
+   "mean_seconds": 47.2
   }
  }
 }

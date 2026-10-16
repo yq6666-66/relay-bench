@@ -22,9 +22,9 @@ def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
     return (max(0.0, c - h), min(1.0, c + h))
 
 
-def aggregate() -> dict[str, dict[str, dict[str, object]]]:
+def aggregate(raw: Path = RAW) -> dict[str, dict[str, dict[str, object]]]:
     cells: dict[tuple[str, str], list[dict[str, object]]] = defaultdict(list)
-    for f in sorted(RAW.glob("*.json")):
+    for f in sorted(raw.glob("*.json")):
         r = json.loads(f.read_text(encoding="utf-8"))
         cells[(str(r["tool"]), str(r["arm"]))].append(r)
     out: dict[str, dict[str, dict[str, object]]] = defaultdict(dict)

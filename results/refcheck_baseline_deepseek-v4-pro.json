@@ -1,0 +1,38 @@
+{
+ "one_char": {
+  "prompt_tokens": [
+   5,
+   5,
+   5
+  ],
+  "completion_tokens": [
+   8,
+   8,
+   8
+  ]
+ },
+ "pangram": {
+  "prompt_tokens": [
+   14,
+   14,
+   14
+  ],
+  "completion_tokens": [
+   8,
+   8,
+   8
+  ]
+ },
+ "echo_ok": {
+  "prompt_tokens": [
+   15,
+   15,
+   15
+  ],
+  "completion_tokens": [
+   1,
+   1,
+   1
+  ]
+ }
+}

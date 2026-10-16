@@ -1,0 +1,13 @@
+{
+ "tool": "model-xray",
+ "arm": "downgrade",
+ "rep": 4,
+ "verdict": "pass",
+ "label": "clean",
+ "seconds": 39.4,
+ "requests": 49,
+ "prompt_tokens": 65030,
+ "completion_tokens": 494,
+ "cache_hit_tokens": 62464,
+ "est_cost_usd": 0.00174
+}

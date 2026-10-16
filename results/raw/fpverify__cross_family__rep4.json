@@ -1,0 +1,13 @@
+{
+ "tool": "fpverify",
+ "arm": "cross_family",
+ "rep": 4,
+ "verdict": "FAIL",
+ "label": "flagged",
+ "seconds": 81.6,
+ "requests": 43,
+ "prompt_tokens": 1828,
+ "completion_tokens": 243,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.00471
+}

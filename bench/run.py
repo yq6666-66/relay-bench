@@ -150,8 +150,27 @@ def run_api_relay_audit(base: str, out: Path) -> tuple[str, str]:
     return verdict, label
 
 
+def run_refcheck(base: str, out: Path) -> tuple[str, str]:
+    from bench import refcheck
+
+    if not refcheck.BASELINE.exists():
+        return "ERROR", "error"
+    ref = json.loads(refcheck.BASELINE.read_text(encoding="utf-8"))
+    try:
+        obs = refcheck.measure(base, "local-dummy", CLAIMED)
+    except Exception as e:  # noqa: BLE001 - any transport failure is an error outcome
+        (out / "stdout.txt").write_text(redact(repr(e)), encoding="utf-8")
+        return "ERROR", "error"
+    verdict, details = refcheck.judge(obs, ref)
+    (out / "refcheck_report.json").write_text(json.dumps({"observed": obs, **details}),
+                                              encoding="utf-8")
+    (out / "signals.json").write_text(json.dumps(details), encoding="utf-8")
+    label = {"FAIL": "flagged", "PASS": "clean", "INCONCLUSIVE": "clean"}.get(verdict, "error")
+    return verdict, label
+
+
 TOOLS = {"fpverify": run_fpverify, "model-xray": run_model_xray,
-         "api-relay-audit": run_api_relay_audit}
+         "api-relay-audit": run_api_relay_audit, "refcheck": run_refcheck}
 
 
 def one(tool: str, arm: str, rep: int, raw: Path = RAW) -> dict[str, object]:
