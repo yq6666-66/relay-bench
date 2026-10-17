@@ -259,7 +259,11 @@ def one(tool: str, arm: str, rep: int, raw: Path = RAW) -> dict[str, object]:
         verdict, label = tool_runner(tool)(base, out)
     finally:
         proc.terminate()
-        proc.wait()
+        try:
+            proc.wait(timeout=30)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait(timeout=10)
     rec: dict[str, object] = {"tool": name, "arm": arm, **({"mock": True} if OFFLINE else {}),
                               "rep": rep, "verdict": verdict,
                               "label": label, "seconds": round(time.time() - t0, 1),
@@ -292,7 +296,11 @@ def enroll(samples: int) -> None:
                        cwd=TP / "fpverify", check=True)
     finally:
         proc.terminate()
-        proc.wait()
+        try:
+            proc.wait(timeout=30)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait(timeout=10)
     (ROOT / "results" / ("enroll_cost.json" if CLAIMED == "deepseek-v4-pro" else f"enroll_cost_{CLAIMED}.json")).write_text(json.dumps(ledger_stats(ledger)))
     print(ledger_stats(ledger))
 
