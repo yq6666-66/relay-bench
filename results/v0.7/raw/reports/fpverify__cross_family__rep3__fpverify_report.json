@@ -1,0 +1,72 @@
+{
+  "reference_model": "deepseek-flash",
+  "generated_at": "2026-10-17T00:14:14.023335+00:00",
+  "verdict": "FAIL",
+  "n_queries": 17,
+  "wealth": 362.7770849326297,
+  "peak_wealth": 362.7770849326297,
+  "threshold": 100.0,
+  "alpha": 0.01,
+  "delta": 0.10786855157179005,
+  "aggregate_jsd": null,
+  "per_cell_jsd": {},
+  "cache_flags": [],
+  "model_fields_seen": {
+    "deepseek-flash": 17
+  },
+  "errors": 0,
+  "detail": "序贯检验拒绝了'端点是真身'的零假设：行为指纹显著偏离，判定注水/偷换。",
+  "observed_counts": {
+    "rand_num_100::ru": {
+      "73": 1
+    },
+    "rand_num_10::ru": {
+      "7": 1
+    },
+    "fav_num::en": {
+      "42": 1
+    },
+    "fav_color::en": {
+      "blue": 1
+    },
+    "rand_letter::ar": {
+      "k": 1
+    },
+    "rand_color::ru": {
+      "бирюзовый": 1
+    },
+    "rand_num_10::zh": {
+      "7": 1
+    },
+    "rand_city::ru": {
+      "токио": 1
+    },
+    "rand_num_100::en": {
+      "47": 1
+    },
+    "coin_flip::ar": {
+      "heads": 1
+    },
+    "fav_num::zh": {
+      "7": 1
+    },
+    "rand_color::ar": {
+      "blue": 1
+    },
+    "rand_letter::zh": {
+      "k": 1
+    },
+    "rand_animal::ar": {
+      "فيل": 1
+    },
+    "rand_city::en": {
+      "kyoto": 1
+    },
+    "rand_city::ar": {
+      "الرباط": 1
+    },
+    "rand_animal::zh": {
+      "海豚": 1
+    }
+  }
+}

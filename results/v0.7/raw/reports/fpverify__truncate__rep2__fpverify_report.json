@@ -1,0 +1,205 @@
+{
+  "reference_model": "deepseek-flash",
+  "generated_at": "2026-10-16T23:56:38.682705+00:00",
+  "verdict": "PASS",
+  "n_queries": 400,
+  "wealth": 2.681342225567238e-25,
+  "peak_wealth": 1.0,
+  "threshold": 100.0,
+  "alpha": 0.01,
+  "delta": 0.10786855157179005,
+  "aggregate_jsd": 0.05212155348219818,
+  "per_cell_jsd": {
+    "rand_letter::en": 0.11399213967460015,
+    "fav_num::ru": 0.07077925019698689,
+    "rand_city::zh": 0.12762310340060912,
+    "rand_color::ar": 0.0322206276543945,
+    "rand_num_10::ar": 0.0,
+    "rand_letter::ru": 0.00017267160317097335,
+    "rand_city::ru": 0.19298876749349278,
+    "coin_flip::zh": 0.0,
+    "rand_animal::en": 0.09831223923189153,
+    "rand_num_100::en": 0.1290573515107943,
+    "rand_num_10::en": 0.0,
+    "rand_num_100::zh": 0.17084667493446504,
+    "fav_color::ar": 0.1322499885218912,
+    "rand_num_100::ru": 0.035977860854910934,
+    "rand_num_10::zh": 0.0,
+    "rand_num_10::ru": 0.0,
+    "rand_color::zh": 0.0,
+    "coin_flip::en": 0.0,
+    "rand_color::en": 0.007874208994288364,
+    "fav_color::ru": 0.025462452938692228,
+    "fav_color::zh": 0.0,
+    "fav_num::zh": 0.025462452938692228,
+    "rand_city::en": 0.01009768163878974,
+    "rand_city::ar": 0.1562187736700233,
+    "rand_num_100::ar": 0.04688228029215244,
+    "rand_animal::zh": 0.051899160321315516,
+    "coin_flip::ar": 0.0,
+    "coin_flip::ru": 0.0,
+    "rand_animal::ar": 0.06544409352856716,
+    "rand_color::ru": 0.06038834237524732,
+    "rand_animal::ru": 0.10271606140148352,
+    "fav_color::en": 0.0,
+    "fav_num::ar": 0.08185913337518641,
+    "rand_letter::zh": 0.10558209311527132,
+    "rand_letter::ar": 0.03226851569221773,
+    "fav_num::en": 0.0
+  },
+  "cache_flags": [],
+  "model_fields_seen": {
+    "deepseek-flash": 400
+  },
+  "errors": 0,
+  "detail": "预算内始终未越界，未发现注水证据（在给定 α/δ 下与参考一致）。",
+  "observed_counts": {
+    "rand_color::en": {
+      "blue": 11,
+      "red": 1
+    },
+    "rand_num_10::ru": {
+      "7": 12
+    },
+    "rand_num_10::en": {
+      "7": 12
+    },
+    "rand_color::ru": {
+      "blue": 8,
+      "red": 4
+    },
+    "rand_animal::ar": {
+      "قطة": 3,
+      "قط": 3,
+      "كلب": 4,
+      "القط": 1
+    },
+    "rand_num_10::zh": {
+      "7": 11
+    },
+    "rand_letter::zh": {
+      "a": 5,
+      "m": 3,
+      "q": 3
+    },
+    "rand_city::zh": {
+      "北京": 8,
+      "上海": 2,
+      "巴黎": 1
+    },
+    "rand_num_100::en": {
+      "42": 9,
+      "23": 1,
+      "47": 1
+    },
+    "rand_city::ru": {
+      "москва": 8,
+      "токио": 3
+    },
+    "rand_num_10::ar": {
+      "7": 11
+    },
+    "fav_color::ru": {
+      "blue": 11
+    },
+    "rand_num_100::zh": {
+      "73": 2,
+      "42": 9
+    },
+    "rand_letter::ar": {
+      "k": 9,
+      "q": 2
+    },
+    "coin_flip::en": {
+      "heads": 11
+    },
+    "rand_city::ar": {
+      "طوكيو": 8,
+      "القاهرة": 2,
+      "باريس": 1
+    },
+    "rand_city::en": {
+      "tokyo": 9,
+      "paris": 2
+    },
+    "rand_animal::zh": {
+      "猫": 11
+    },
+    "coin_flip::ru": {
+      "heads": 11
+    },
+    "fav_num::zh": {
+      "7": 11
+    },
+    "rand_num_100::ar": {
+      "73": 4,
+      "47": 2,
+      "42": 5
+    },
+    "fav_color::zh": {
+      "blue": 11
+    },
+    "rand_num_100::ru": {
+      "42": 5,
+      "73": 1,
+      "37": 1,
+      "47": 4
+    },
+    "coin_flip::zh": {
+      "heads": 11
+    },
+    "fav_num::ru": {
+      "42": 1,
+      "7": 10
+    },
+    "rand_animal::en": {
+      "owl": 2,
+      "cat": 6,
+      "elephant": 2,
+      "dog": 1
+    },
+    "coin_flip::ar": {
+      "heads": 11
+    },
+    "rand_color::ar": {
+      "الأزرق": 2,
+      "blue": 9
+    },
+    "rand_color::zh": {
+      "blue": 11
+    },
+    "fav_color::ar": {
+      "الأزرق": 6,
+      "blue": 3,
+      "ليس": 1,
+      "لا": 1
+    },
+    "rand_animal::ru": {
+      "собака": 1,
+      "кот": 1,
+      "кошка": 5,
+      "тигр": 3,
+      "слон": 1
+    },
+    "fav_num::en": {
+      "7": 11
+    },
+    "rand_letter::ru": {
+      "q": 10,
+      "k": 1
+    },
+    "fav_color::en": {
+      "blue": 11
+    },
+    "fav_num::ar": {
+      "7": 10,
+      "<other>": 1
+    },
+    "rand_letter::en": {
+      "q": 3,
+      "j": 3,
+      "k": 3,
+      "m": 2
+    }
+  }
+}

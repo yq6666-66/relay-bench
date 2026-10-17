@@ -1,0 +1,13 @@
+{
+ "tool": "fpverify",
+ "arm": "honest",
+ "rep": 1,
+ "verdict": "PASS",
+ "label": "clean",
+ "seconds": 894.6,
+ "requests": 400,
+ "prompt_tokens": 15363,
+ "completion_tokens": 581,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.00531
+}

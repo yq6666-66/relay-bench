@@ -1,0 +1,13 @@
+{
+ "tool": "fpverify",
+ "arm": "truncate",
+ "rep": 2,
+ "verdict": "PASS",
+ "label": "clean",
+ "seconds": 1455.5,
+ "requests": 400,
+ "prompt_tokens": 15415,
+ "completion_tokens": 594,
+ "cache_hit_tokens": 0,
+ "est_cost_usd": 0.00534
+}
