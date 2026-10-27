@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+Root README converts the eight reader-facing bullets under「当前结论」to an ordered list. Code blocks and tables are unchanged. Documentation only; no functional change.
+
 ## v0.7 — 2026-10-16
 - Second claimed model: `deepseek-flash` probe (same family, cheaper), `configs/arms-flash.yaml`, no downgrade arm. Protocol pre-registered in `results/v0.7/PROTOCOL.md`; report `results/v0.7/report.md`, table from `python -m bench.report_v07`.
 - `RELAY_BENCH_CLAIMED` now also separates run directories (`runs/<model>/`) and the enroll cost file.
